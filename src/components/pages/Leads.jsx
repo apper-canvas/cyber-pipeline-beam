@@ -426,7 +426,7 @@ className="w-full max-w-2xl bg-white rounded-xl shadow-xl border border-slate-20
                 </div>
                 
 <form onSubmit={handleAddLead} className="flex flex-col h-full">
-                  <div className="flex-1 overflow-y-auto p-6">
+<div className="flex-1 overflow-y-auto p-6 scrollbar-gutter-stable" style={{scrollbarWidth: 'thin'}}>
                     <div className="space-y-6">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
