@@ -271,13 +271,16 @@ setNewLead({
                       Status
                     </th>
                     <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
-                      Value
-                    </th>
-                    <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
-                      Created
+Value
                     </th>
                     <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
                       Last Contact
+                    </th>
+                    <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                      Sales Rep
+                    </th>
+                    <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                      Notes
                     </th>
                     <th className="px-6 py-4 text-right text-xs font-semibold text-slate-600 uppercase tracking-wider">
                       Actions
@@ -344,13 +347,23 @@ setNewLead({
                           }
                         </span>
                       </td>
-                      <td className="px-6 py-4">
+<td className="px-6 py-4">
                         <span className="text-sm text-slate-600">
                           {lead.lastContactedAt 
                             ? format(new Date(lead.lastContactedAt), "MMM dd, yyyy")
                             : "Never"
                           }
                         </span>
+                      </td>
+                      <td className="px-6 py-4">
+                        <span className="text-sm font-medium text-slate-900">
+                          {lead.assignedTo || "Unassigned"}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4">
+                        <div className="text-sm text-slate-600 max-w-xs truncate" title={lead.notes}>
+                          {lead.notes || "No notes"}
+                        </div>
                       </td>
                       <td className="px-6 py-4 text-right">
                         <div className="flex items-center justify-end space-x-2">
