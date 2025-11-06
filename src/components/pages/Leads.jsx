@@ -419,265 +419,269 @@ onClick={(e) => {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 onClick={(e) => e.stopPropagation()}
-                className="w-full max-w-2xl bg-white rounded-xl shadow-xl border border-slate-200 max-h-[90vh] flex flex-col"
+className="w-full max-w-2xl bg-white rounded-xl shadow-xl border border-slate-200 max-h-[90vh] flex flex-col"
               >
                 <div className="p-6 border-b border-slate-200">
                   <h3 className="text-lg font-semibold text-slate-900">Add New Lead</h3>
                 </div>
                 
-                <form onSubmit={handleAddLead} className="p-6 space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium text-slate-700 mb-2">
-                        Full Name *
-                      </label>
-                      <Input
-                        value={newLead.name}
-                        onChange={(e) => setNewLead({ ...newLead, name: e.target.value })}
-                        required
-                        placeholder="Enter full name"
-                      />
-</div>
-                    
-                    <div>
-                      <label className="block text-sm font-medium text-slate-700 mb-2">
-                        Email *
-                      </label>
-                      <Input
-                        type="email"
-                        value={newLead.email}
-                        onChange={(e) => setNewLead({ ...newLead, email: e.target.value })}
-                        required
-                        placeholder="Enter email address"
-                      />
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-medium text-slate-700 mb-2">
-                        Phone
-                      </label>
-                      <Input
-                        value={newLead.phone}
-                        onChange={(e) => setNewLead({ ...newLead, phone: e.target.value })}
-                        placeholder="Enter phone number"
-                      />
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-medium text-slate-700 mb-2">
-                        Company *
-                      </label>
-                      <Input
-                        value={newLead.company}
-                        onChange={(e) => setNewLead({ ...newLead, company: e.target.value })}
-                        required
-                        placeholder="Enter company name"
-                      />
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-medium text-slate-700 mb-2">
-                        Website URL
-                      </label>
-                      <Input
-                        type="url"
-                        value={newLead.websiteUrl}
-                        onChange={(e) => setNewLead({ ...newLead, websiteUrl: e.target.value })}
-                        placeholder="https://company-website.com"
-                      />
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-medium text-slate-700 mb-2">
-                        LinkedIn URL
-                      </label>
-                      <Input
-                        type="url"
-                        value={newLead.linkedinUrl}
-                        onChange={(e) => setNewLead({ ...newLead, linkedinUrl: e.target.value })}
-                        placeholder="https://linkedin.com/company/company-name"
-                      />
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-medium text-slate-700 mb-2">
-                        Position
-                      </label>
-                      <Input
-                        value={newLead.position}
-                        onChange={(e) => setNewLead({ ...newLead, position: e.target.value })}
-                        placeholder="Enter job title"
-                      />
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-medium text-slate-700 mb-2">
-                        Team Size
-                      </label>
-                      <Input
-                        type="number"
-                        min="1"
-                        value={newLead.teamSize}
-                        onChange={(e) => setNewLead({ ...newLead, teamSize: e.target.value })}
-                        placeholder="Number of employees"
-                      />
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-medium text-slate-700 mb-2">
-                        ARR (Annual Recurring Revenue)
-                      </label>
-                      <Input
-                        type="number"
-                        min="0"
-                        value={newLead.arr}
-                        onChange={(e) => setNewLead({ ...newLead, arr: e.target.value })}
-                        placeholder="Enter ARR amount"
-                      />
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-medium text-slate-700 mb-2">
-                        Category
-                      </label>
-                      <select
-                        value={newLead.category}
-                        onChange={(e) => setNewLead({ ...newLead, category: e.target.value })}
-                        className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                      >
-                        <option value="">Select category</option>
-                        <option value="Enterprise">Enterprise</option>
-                        <option value="SMB">Small/Medium Business</option>
-                        <option value="Startup">Startup</option>
-                        <option value="Government">Government</option>
-                        <option value="Non-Profit">Non-Profit</option>
-                        <option value="Education">Education</option>
-                      </select>
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-medium text-slate-700 mb-2">
-                        Source
-                      </label>
-                      <select
-                        value={newLead.source}
-                        onChange={(e) => setNewLead({ ...newLead, source: e.target.value })}
-                        className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                      >
-                        <option value="Website">Website</option>
-                        <option value="LinkedIn">LinkedIn</option>
-                        <option value="Referral">Referral</option>
-                        <option value="Trade Show">Trade Show</option>
-                        <option value="Google Ads">Google Ads</option>
-                        <option value="Email Campaign">Email Campaign</option>
-                      </select>
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-medium text-slate-700 mb-2">
-                        Status
-                      </label>
-                      <select
-                        value={newLead.status}
-                        onChange={(e) => setNewLead({ ...newLead, status: e.target.value })}
-                        className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                      >
-                        <option value="new">New</option>
-                        <option value="contacted">Contacted</option>
-                        <option value="qualified">Qualified</option>
-                        <option value="proposal">Proposal Sent</option>
-                        <option value="negotiation">In Negotiation</option>
-                        <option value="won">Won</option>
-                        <option value="lost">Lost</option>
-                      </select>
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-medium text-slate-700 mb-2">
-                        Funding Type
-                      </label>
-                      <select
-                        value={newLead.fundingType}
-                        onChange={(e) => setNewLead({ ...newLead, fundingType: e.target.value })}
-                        className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                      >
-                        <option value="">Select funding type</option>
-                        <option value="Bootstrapped">Bootstrapped</option>
-                        <option value="Pre-Seed">Pre-Seed</option>
-                        <option value="Seed">Seed</option>
-                        <option value="Series A">Series A</option>
-                        <option value="Series B">Series B</option>
-                        <option value="Series C+">Series C+</option>
-                        <option value="Public">Public Company</option>
-                        <option value="Private Equity">Private Equity</option>
-                      </select>
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-medium text-slate-700 mb-2">
-                        Edition
-                      </label>
-                      <select
-                        value={newLead.edition}
-                        onChange={(e) => setNewLead({ ...newLead, edition: e.target.value })}
-                        className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                      >
-                        <option value="">Select Edition</option>
-                        <option value="Black Edition">Black Edition</option>
-                        <option value="Collector's Edition">Collector's Edition</option>
-                        <option value="Limited Edition">Limited Edition</option>
-                      </select>
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-medium text-slate-700 mb-2">
-                        Estimated Value
-                      </label>
-                      <Input
-                        type="number"
-                        value={newLead.value}
-                        onChange={(e) => setNewLead({ ...newLead, value: e.target.value })}
-                        placeholder="Enter estimated deal value"
-                      />
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-medium text-slate-700 mb-2">
-                        Sales Rep
-                      </label>
-                      <Input
-                        value={newLead.salesRep}
-                        onChange={(e) => setNewLead({ ...newLead, salesRep: e.target.value })}
-                        placeholder="Assigned sales representative"
-                      />
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-medium text-slate-700 mb-2">
-                        Assigned To
-                      </label>
-                      <Input
-                        value={newLead.assignedTo}
-                        onChange={(e) => setNewLead({ ...newLead, assignedTo: e.target.value })}
-                        placeholder="Assign to team member"
-                      />
+<form onSubmit={handleAddLead} className="flex flex-col h-full">
+                  <div className="flex-1 overflow-y-auto p-6">
+                    <div className="space-y-6">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-sm font-medium text-slate-700 mb-2">
+                            Full Name *
+                          </label>
+                          <Input
+                            value={newLead.name}
+                            onChange={(e) => setNewLead({ ...newLead, name: e.target.value })}
+                            required
+                            placeholder="Enter full name"
+                          />
+                        </div>
+                        
+                        <div>
+                          <label className="block text-sm font-medium text-slate-700 mb-2">
+                            Email *
+                          </label>
+                          <Input
+                            type="email"
+                            value={newLead.email}
+                            onChange={(e) => setNewLead({ ...newLead, email: e.target.value })}
+                            required
+                            placeholder="Enter email address"
+                          />
+                        </div>
+                        
+                        <div>
+                          <label className="block text-sm font-medium text-slate-700 mb-2">
+                            Phone
+                          </label>
+                          <Input
+                            value={newLead.phone}
+                            onChange={(e) => setNewLead({ ...newLead, phone: e.target.value })}
+                            placeholder="Enter phone number"
+                          />
+                        </div>
+                        
+                        <div>
+                          <label className="block text-sm font-medium text-slate-700 mb-2">
+                            Company *
+                          </label>
+                          <Input
+                            value={newLead.company}
+                            onChange={(e) => setNewLead({ ...newLead, company: e.target.value })}
+                            required
+                            placeholder="Enter company name"
+                          />
+                        </div>
+                        
+                        <div>
+                          <label className="block text-sm font-medium text-slate-700 mb-2">
+                            Website URL
+                          </label>
+                          <Input
+                            type="url"
+                            value={newLead.websiteUrl}
+                            onChange={(e) => setNewLead({ ...newLead, websiteUrl: e.target.value })}
+                            placeholder="https://company-website.com"
+                          />
+                        </div>
+                        
+                        <div>
+                          <label className="block text-sm font-medium text-slate-700 mb-2">
+                            LinkedIn URL
+                          </label>
+                          <Input
+                            type="url"
+                            value={newLead.linkedinUrl}
+                            onChange={(e) => setNewLead({ ...newLead, linkedinUrl: e.target.value })}
+                            placeholder="https://linkedin.com/company/company-name"
+                          />
+                        </div>
+                        
+                        <div>
+                          <label className="block text-sm font-medium text-slate-700 mb-2">
+                            Position
+                          </label>
+                          <Input
+                            value={newLead.position}
+                            onChange={(e) => setNewLead({ ...newLead, position: e.target.value })}
+                            placeholder="Enter job title"
+                          />
+                        </div>
+                        
+                        <div>
+                          <label className="block text-sm font-medium text-slate-700 mb-2">
+                            Team Size
+                          </label>
+                          <Input
+                            type="number"
+                            min="1"
+                            value={newLead.teamSize}
+                            onChange={(e) => setNewLead({ ...newLead, teamSize: e.target.value })}
+                            placeholder="Number of employees"
+                          />
+                        </div>
+                        
+                        <div>
+                          <label className="block text-sm font-medium text-slate-700 mb-2">
+                            ARR (Annual Recurring Revenue)
+                          </label>
+                          <Input
+                            type="number"
+                            min="0"
+                            value={newLead.arr}
+                            onChange={(e) => setNewLead({ ...newLead, arr: e.target.value })}
+                            placeholder="Enter ARR amount"
+                          />
+                        </div>
+                        
+                        <div>
+                          <label className="block text-sm font-medium text-slate-700 mb-2">
+                            Category
+                          </label>
+                          <select
+                            value={newLead.category}
+                            onChange={(e) => setNewLead({ ...newLead, category: e.target.value })}
+                            className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                          >
+                            <option value="">Select category</option>
+                            <option value="Enterprise">Enterprise</option>
+                            <option value="SMB">Small/Medium Business</option>
+                            <option value="Startup">Startup</option>
+                            <option value="Government">Government</option>
+                            <option value="Non-Profit">Non-Profit</option>
+                            <option value="Education">Education</option>
+                          </select>
+                        </div>
+                        
+                        <div>
+                          <label className="block text-sm font-medium text-slate-700 mb-2">
+                            Source
+                          </label>
+                          <select
+                            value={newLead.source}
+                            onChange={(e) => setNewLead({ ...newLead, source: e.target.value })}
+                            className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                          >
+                            <option value="Website">Website</option>
+                            <option value="LinkedIn">LinkedIn</option>
+                            <option value="Referral">Referral</option>
+                            <option value="Trade Show">Trade Show</option>
+                            <option value="Google Ads">Google Ads</option>
+                            <option value="Email Campaign">Email Campaign</option>
+                          </select>
+                        </div>
+                        
+                        <div>
+                          <label className="block text-sm font-medium text-slate-700 mb-2">
+                            Status
+                          </label>
+                          <select
+                            value={newLead.status}
+                            onChange={(e) => setNewLead({ ...newLead, status: e.target.value })}
+                            className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                          >
+                            <option value="new">New</option>
+                            <option value="contacted">Contacted</option>
+                            <option value="qualified">Qualified</option>
+                            <option value="proposal">Proposal Sent</option>
+                            <option value="negotiation">In Negotiation</option>
+                            <option value="won">Won</option>
+                            <option value="lost">Lost</option>
+                          </select>
+                        </div>
+                        
+                        <div>
+                          <label className="block text-sm font-medium text-slate-700 mb-2">
+                            Funding Type
+                          </label>
+                          <select
+                            value={newLead.fundingType}
+                            onChange={(e) => setNewLead({ ...newLead, fundingType: e.target.value })}
+                            className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                          >
+                            <option value="">Select funding type</option>
+                            <option value="Bootstrapped">Bootstrapped</option>
+                            <option value="Pre-Seed">Pre-Seed</option>
+                            <option value="Seed">Seed</option>
+                            <option value="Series A">Series A</option>
+                            <option value="Series B">Series B</option>
+                            <option value="Series C+">Series C+</option>
+                            <option value="Public">Public Company</option>
+                            <option value="Private Equity">Private Equity</option>
+                          </select>
+                        </div>
+                        
+                        <div>
+                          <label className="block text-sm font-medium text-slate-700 mb-2">
+                            Edition
+                          </label>
+                          <select
+                            value={newLead.edition}
+                            onChange={(e) => setNewLead({ ...newLead, edition: e.target.value })}
+                            className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                          >
+                            <option value="">Select Edition</option>
+                            <option value="Black Edition">Black Edition</option>
+                            <option value="Collector's Edition">Collector's Edition</option>
+                            <option value="Limited Edition">Limited Edition</option>
+                          </select>
+                        </div>
+                        
+                        <div>
+                          <label className="block text-sm font-medium text-slate-700 mb-2">
+                            Estimated Value
+                          </label>
+                          <Input
+                            type="number"
+                            value={newLead.value}
+                            onChange={(e) => setNewLead({ ...newLead, value: e.target.value })}
+                            placeholder="Enter estimated deal value"
+                          />
+                        </div>
+                        
+                        <div>
+                          <label className="block text-sm font-medium text-slate-700 mb-2">
+                            Sales Rep
+                          </label>
+                          <Input
+                            value={newLead.salesRep}
+                            onChange={(e) => setNewLead({ ...newLead, salesRep: e.target.value })}
+                            placeholder="Assigned sales representative"
+                          />
+                        </div>
+                        
+                        <div>
+                          <label className="block text-sm font-medium text-slate-700 mb-2">
+                            Assigned To
+                          </label>
+                          <Input
+                            value={newLead.assignedTo}
+                            onChange={(e) => setNewLead({ ...newLead, assignedTo: e.target.value })}
+                            placeholder="Assign to team member"
+                          />
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <label className="block text-sm font-medium text-slate-700 mb-2">
+                          Notes
+                        </label>
+                        <textarea
+                          value={newLead.notes}
+                          onChange={(e) => setNewLead({ ...newLead, notes: e.target.value })}
+                          rows={3}
+                          className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                          placeholder="Add any additional notes..."
+                        />
+                      </div>
                     </div>
                   </div>
                   
-                  <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-2">
-                      Notes
-                    </label>
-                    <textarea
-                      value={newLead.notes}
-                      onChange={(e) => setNewLead({ ...newLead, notes: e.target.value })}
-                      rows={3}
-                      className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                      placeholder="Add any additional notes..."
-                    />
-                  </div>
-                  
-                  <div className="flex justify-end space-x-3 pt-4 border-t border-slate-200">
+                  <div className="flex-shrink-0 flex justify-end space-x-3 p-6 border-t border-slate-200 bg-white rounded-b-xl">
                     <Button
                       type="button"
                       variant="outline"
