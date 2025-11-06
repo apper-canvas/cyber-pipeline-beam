@@ -75,7 +75,38 @@ export const dealsService = {
       stage: newStage,
       updatedAt: new Date().toISOString()
     };
+return { ...dealsData[index] };
+  },
+
+  async getMetrics() {
+    await delay(200);
+    const closedWonDeals = dealsData.filter(deal => deal.stage === "closed_won");
+    const allDeals = [...dealsData];
     
-    return { ...dealsData[index] };
+    // Average deal size
+    const avgDealSize = closedWonDeals.length > 0 
+      ? closedWonDeals.reduce((sum, deal) => sum + deal.value, 0) / closedWonDeals.length
+      : 0;
+    
+    // Time to close (average days from creation to close)
+    const timeToClose = closedWonDeals.length > 0
+      ? closedWonDeals.reduce((sum, deal) => {
+          const created = new Date(deal.createdAt);
+          const closed = new Date(deal.closedAt || deal.updatedAt);
+          return sum + Math.ceil((closed - created) / (1000 * 60 * 60 * 24));
+        }, 0) / closedWonDeals.length
+      : 0;
+    
+    // Sales velocity: (Number of deals × Average deal value) / Average sales cycle
+    const salesVelocity = timeToClose > 0 
+      ? (closedWonDeals.length * avgDealSize) / timeToClose
+      : 0;
+    
+    return {
+      avgDealSize,
+      timeToClose,
+      salesVelocity,
+      totalClosedWonDeals: closedWonDeals.length
+    };
   }
 };

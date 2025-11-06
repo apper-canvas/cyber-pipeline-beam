@@ -1,4 +1,6 @@
 import leadsData from "@/services/mockData/leads.json";
+import React from "react";
+import Error from "@/components/ui/Error";
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -63,8 +65,37 @@ export const leadsService = {
     return leadsData.filter(lead => lead.status === status).map(lead => ({ ...lead }));
   },
 
-  async getBySource(source) {
+async getBySource(source) {
     await delay(200);
     return leadsData.filter(lead => lead.source === source).map(lead => ({ ...lead }));
+  },
+
+  async getWinRateBySource(deals) {
+    await delay(200);
+    const sources = [...new Set(leadsData.map(lead => lead.source))];
+    const sourceStats = {};
+    
+    sources.forEach(source => {
+      const leadsFromSource = leadsData.filter(lead => lead.source === source);
+      const dealsFromSource = deals.filter(deal => 
+        leadsFromSource.some(lead => lead.Id === deal.leadId)
+      );
+      const wonDeals = dealsFromSource.filter(deal => deal.stage === "closed_won");
+      
+      sourceStats[source] = {
+        totalDeals: dealsFromSource.length,
+        wonDeals: wonDeals.length,
+        winRate: dealsFromSource.length > 0 ? Math.round((wonDeals.length / dealsFromSource.length) * 100) : 0
+      };
+    });
+    
+    // Return overall win rate across all sources
+    const totalDeals = Object.values(sourceStats).reduce((sum, stat) => sum + stat.totalDeals, 0);
+    const totalWon = Object.values(sourceStats).reduce((sum, stat) => sum + stat.wonDeals, 0);
+    const overallWinRate = totalDeals > 0 ? Math.round((totalWon / totalDeals) * 100) : 0;
+    
+    return {
+      bySource: sourceStats,
+      overall: overallWinRate
+    };
   }
-};

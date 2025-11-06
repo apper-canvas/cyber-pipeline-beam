@@ -33,7 +33,7 @@ const Dashboard = () => {
         activitiesService.getAll()
       ]);
 
-      // Calculate metrics
+// Calculate basic metrics
       const totalLeads = leads.length;
       const qualifiedLeads = leads.filter(lead => lead.status === "qualified").length;
       const activeDeals = deals.filter(deal => !["closed_won", "closed_lost"].includes(deal.stage)).length;
@@ -42,6 +42,10 @@ const Dashboard = () => {
         .reduce((sum, deal) => sum + deal.value, 0);
       
       const conversionRate = totalLeads > 0 ? Math.round((qualifiedLeads / totalLeads) * 100) : 0;
+
+      // Get advanced deal metrics
+      const dealMetrics = await dealsService.getMetrics();
+      const winRateData = await leadsService.getWinRateBySource(deals);
 
       // Generate revenue trend data (last 7 days)
       const revenueData = [];
@@ -71,7 +75,11 @@ const Dashboard = () => {
           totalLeads,
           activeDeals,
           conversionRate,
-          totalRevenue
+          totalRevenue,
+          salesVelocity: dealMetrics.salesVelocity,
+          winRateBySource: winRateData.overall,
+          avgDealSize: dealMetrics.avgDealSize,
+          timeToClose: dealMetrics.timeToClose
         },
         recentActivities,
         chartData: {
@@ -179,7 +187,7 @@ const Dashboard = () => {
           </p>
         </div>
 
-        {/* Metrics Cards */}
+{/* Metrics Cards */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -216,6 +224,47 @@ const Dashboard = () => {
             changeType="positive"
             icon="DollarSign"
             color="success"
+          />
+        </motion.div>
+
+        {/* New Sales Metrics Row */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8"
+        >
+          <MetricCard
+            title="Sales Velocity"
+            value={`$${Math.round(metrics.salesVelocity).toLocaleString()}/day`}
+            change="+15%"
+            changeType="positive"
+            icon="Zap"
+            color="primary"
+          />
+          <MetricCard
+            title="Win Rate by Source"
+            value={`${metrics.winRateBySource}%`}
+            change="+5%"
+            changeType="positive"
+            icon="Trophy"
+            color="accent"
+          />
+          <MetricCard
+            title="Average Deal Size"
+            value={`$${Math.round(metrics.avgDealSize).toLocaleString()}`}
+            change="+18%"
+            changeType="positive"
+            icon="Calculator"
+            color="success"
+          />
+          <MetricCard
+            title="Time to Close"
+            value={`${Math.round(metrics.timeToClose)} days`}
+            change="-8%"
+            changeType="positive"
+            icon="Clock"
+            color="warning"
           />
         </motion.div>
 
