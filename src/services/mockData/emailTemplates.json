@@ -1,0 +1,62 @@
+[
+  {
+    "Id": 1,
+    "name": "Initial Outreach",
+    "category": "prospecting",
+    "subject": "Quick question about {{company}}'s marketing strategy",
+    "content": "Hi {{name}},\n\nI hope this email finds you well. I noticed {{company}} has been growing rapidly, and I'm curious about your current approach to lead generation.\n\nAt {{companyName}}, we've helped companies similar to {{company}} increase their qualified leads by 40-60% within the first quarter. I'd love to share some insights that might be relevant to your team.\n\nWould you be open to a brief 15-minute call this week to discuss your current challenges and goals?\n\nBest regards,\n{{senderName}}",
+    "description": "Perfect for reaching out to new prospects who haven't been contacted before.",
+    "createdAt": "2024-01-01T10:00:00Z",
+    "updatedAt": "2024-01-01T10:00:00Z"
+  },
+  {
+    "Id": 2,
+    "name": "Follow-up After Demo",
+    "category": "follow_up",
+    "subject": "Thank you for your time, {{name}} - Next steps for {{company}}",
+    "content": "Hi {{name}},\n\nThank you for taking the time to join our demo yesterday. I enjoyed learning more about {{company}}'s goals and the challenges you're facing with your current lead management process.\n\nAs discussed, our platform could help you:\n• Streamline your lead qualification process\n• Increase conversion rates by 25-35%\n• Save your team 10+ hours per week on manual tasks\n\nI've attached a customized proposal based on our conversation. I'd be happy to schedule a follow-up call to address any questions and discuss implementation timelines.\n\nWhat does your calendar look like for a 30-minute call this Friday?\n\nBest regards,\n{{senderName}}\n{{companyName}}",
+    "description": "Use this template after conducting a product demo or presentation.",
+    "createdAt": "2024-01-02T09:30:00Z",
+    "updatedAt": "2024-01-02T09:30:00Z"
+  },
+  {
+    "Id": 3,
+    "name": "Re-engagement Campaign",
+    "category": "nurturing",
+    "subject": "{{name}}, is lead management still a priority for {{company}}?",
+    "content": "Hi {{name}},\n\nI hope you're doing well! I wanted to reach out because it's been a while since we last spoke about {{company}}'s lead management needs.\n\nI understand priorities can shift, but I wanted to check if streamlining your sales process is still something you're looking to address this quarter.\n\nSince our last conversation, we've helped several companies in your industry:\n• TechStart Inc. increased their lead conversion by 45%\n• Growth Co. reduced their sales cycle by 30%\n• Scale Solutions automated 80% of their lead qualification\n\nIf timing is better now, I'd love to show you some quick wins we could implement for {{company}}. Even a 10-minute call could provide some valuable insights.\n\nWould you be interested in reconnecting?\n\nBest,\n{{senderName}}",
+    "description": "Perfect for re-engaging leads who have gone cold or haven't responded in a while.",
+    "createdAt": "2024-01-03T14:15:00Z",
+    "updatedAt": "2024-01-03T14:15:00Z"
+  },
+  {
+    "Id": 4,
+    "name": "Meeting Confirmation",
+    "category": "scheduling",
+    "subject": "Confirming our meeting tomorrow - {{company}} growth discussion",
+    "content": "Hi {{name}},\n\nI wanted to confirm our meeting scheduled for tomorrow at [TIME] to discuss {{company}}'s growth strategies and how we might be able to help.\n\nTo make the most of our time together, I've prepared:\n• Industry benchmarks relevant to your business\n• Case studies from similar companies\n• A preliminary assessment of potential opportunities\n\nIs there anything specific you'd like me to focus on during our discussion?\n\nLooking forward to our conversation!\n\nMeeting Details:\n📅 Date: [DATE]\n🕒 Time: [TIME]\n📞 Dial-in: [MEETING_LINK]\n\nBest regards,\n{{senderName}}\n{{companyName}}\n{{phone}}",
+    "description": "Send this to confirm upcoming meetings and set expectations.",
+    "createdAt": "2024-01-04T11:45:00Z",
+    "updatedAt": "2024-01-04T11:45:00Z"
+  },
+  {
+    "Id": 5,
+    "name": "Proposal Follow-up",
+    "category": "closing",
+    "subject": "{{company}}'s proposal - Any questions, {{name}}?",
+    "content": "Hi {{name}},\n\nI wanted to follow up on the proposal I sent for {{company}} last week. I hope you've had a chance to review it with your team.\n\nTo recap what we discussed:\n• Implementation timeline: 4-6 weeks\n• Expected ROI: 200-300% within first year\n• Dedicated support throughout onboarding\n• 30-day money-back guarantee\n\nI'm here to answer any questions you might have about:\n✓ Technical implementation details\n✓ Integration with your current systems\n✓ Training and support options\n✓ Pricing and contract terms\n\nWould you like to schedule a brief call to discuss any concerns or questions? I'm confident we can address anything that's holding you back.\n\nWhat's the best time for a quick conversation this week?\n\nBest regards,\n{{senderName}}\n{{phone}}\n{{email}}",
+    "description": "Follow up on proposals and help move deals toward closing.",
+    "createdAt": "2024-01-05T16:20:00Z",
+    "updatedAt": "2024-01-05T16:20:00Z"
+  },
+  {
+    "Id": 6,
+    "name": "Thank You & Next Steps",
+    "category": "closing",
+    "subject": "Welcome to {{companyName}}, {{name}}! Your next steps",
+    "content": "Dear {{name}},\n\nThank you for choosing {{companyName}} to help {{company}} achieve its growth goals! We're thrilled to partner with you.\n\nHere's what happens next:\n\n📋 Week 1: Account setup and initial configuration\n📞 Week 2: Team training sessions (scheduled for your convenience)\n🚀 Week 3: Go-live with full support\n📈 Week 4: First performance review and optimization\n\nYour dedicated success manager will contact you within 24 hours to:\n• Schedule your kickoff call\n• Gather necessary technical requirements\n• Set up your implementation timeline\n\nIn the meantime, please don't hesitate to reach out if you have any questions. We're here to ensure your success!\n\nWelcome aboard!\n\n{{senderName}}\nCustomer Success Team\n{{companyName}}\n{{phone}} | {{email}}",
+    "description": "Welcome new customers and outline implementation process.",
+    "createdAt": "2024-01-06T13:10:00Z",
+    "updatedAt": "2024-01-06T13:10:00Z"
+  }
+]

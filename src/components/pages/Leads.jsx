@@ -7,10 +7,11 @@ import StatusBadge from "@/components/molecules/StatusBadge";
 import Loading from "@/components/ui/Loading";
 import Error from "@/components/ui/Error";
 import Empty from "@/components/ui/Empty";
+import EmailComposerModal from "@/components/molecules/EmailComposerModal";
+import EmailTemplateModal from "@/components/molecules/EmailTemplateModal";
 import { leadsService } from "@/services/api/leadsService";
 import { format } from "date-fns";
 import { toast } from "react-toastify";
-
 const Leads = () => {
   const [leads, setLeads] = useState([]);
   const [filteredLeads, setFilteredLeads] = useState([]);
@@ -18,9 +19,12 @@ const Leads = () => {
   const [error, setError] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
-  const [sourceFilter, setSourceFilter] = useState("all");
+const [sourceFilter, setSourceFilter] = useState("all");
   const [selectedLead, setSelectedLead] = useState(null);
   const [showAddModal, setShowAddModal] = useState(false);
+  const [showEmailComposer, setShowEmailComposer] = useState(false);
+  const [showTemplateModal, setShowTemplateModal] = useState(false);
+  const [emailLead, setEmailLead] = useState(null);
   const [newLead, setNewLead] = useState({
     name: "",
     email: "",
@@ -345,10 +349,10 @@ const Leads = () => {
                             <ApperIcon name="Phone" className="w-4 h-4" />
                           </button>
                           <button
-                            onClick={(e) => {
+onClick={(e) => {
                               e.stopPropagation();
-                              // Handle email action
-                              toast.success("Email composer opened");
+                              setEmailLead(lead);
+                              setShowEmailComposer(true);
                             }}
                             className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
                           >
@@ -518,6 +522,21 @@ const Leads = () => {
             </motion.div>
           )}
         </AnimatePresence>
+{/* Email Composer Modal */}
+        <EmailComposerModal
+          isOpen={showEmailComposer}
+          onClose={() => {
+            setShowEmailComposer(false);
+            setEmailLead(null);
+          }}
+          selectedLead={emailLead}
+        />
+
+        {/* Email Template Modal */}
+        <EmailTemplateModal
+          isOpen={showTemplateModal}
+          onClose={() => setShowTemplateModal(false)}
+        />
 
         {/* Lead Detail Modal */}
         <AnimatePresence>
