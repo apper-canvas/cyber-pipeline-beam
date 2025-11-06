@@ -1,0 +1,57 @@
+[
+  {
+    "Id": 1,
+    "type": "call",
+    "relatedTo": "1",
+    "relatedType": "lead",
+    "subject": "Discovery Call",
+    "description": "Had detailed discussion about enterprise requirements. Very positive response.",
+    "scheduledAt": "2024-01-18T14:30:00Z",
+    "completedAt": "2024-01-18T15:15:00Z",
+    "createdBy": "John Smith"
+  },
+  {
+    "Id": 2,
+    "type": "email",
+    "relatedTo": "2",
+    "relatedType": "lead",
+    "subject": "Demo Follow-up",
+    "description": "Sent demo recording and next steps. Requested technical requirements.",
+    "scheduledAt": "2024-01-17T11:45:00Z",
+    "completedAt": "2024-01-17T11:50:00Z",
+    "createdBy": "Sarah Williams"
+  },
+  {
+    "Id": 3,
+    "type": "meeting",
+    "relatedTo": "3",
+    "relatedType": "deal",
+    "subject": "Stakeholder Meeting",
+    "description": "Meeting with IT team and decision makers. Addressed technical questions.",
+    "scheduledAt": "2024-01-22T10:00:00Z",
+    "completedAt": null,
+    "createdBy": "Lisa Anderson"
+  },
+  {
+    "Id": 4,
+    "type": "task",
+    "relatedTo": "4",
+    "relatedType": "lead",
+    "subject": "Send Proposal",
+    "description": "Prepare and send customized proposal based on requirements gathering.",
+    "scheduledAt": "2024-01-21T09:00:00Z",
+    "completedAt": null,
+    "createdBy": "Mike Davis"
+  },
+  {
+    "Id": 5,
+    "type": "note",
+    "relatedTo": "1",
+    "relatedType": "deal",
+    "subject": "Proposal Update",
+    "description": "Updated proposal with revised pricing structure as requested.",
+    "scheduledAt": "2024-01-19T16:30:00Z",
+    "completedAt": "2024-01-19T16:30:00Z",
+    "createdBy": "John Smith"
+  }
+]

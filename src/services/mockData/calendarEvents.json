@@ -1,0 +1,79 @@
+[
+  {
+    "Id": 1,
+    "title": "Demo with TechCorp",
+    "type": "meeting",
+    "relatedTo": "1",
+    "relatedType": "lead",
+    "startTime": "2024-01-22T14:00:00Z",
+    "endTime": "2024-01-22T15:00:00Z",
+    "location": "Zoom Meeting",
+    "description": "Product demonstration for enterprise package requirements."
+  },
+  {
+    "Id": 2,
+    "title": "Follow-up Call - InnovateDev",
+    "type": "call",
+    "relatedTo": "2",
+    "relatedType": "lead",
+    "startTime": "2024-01-23T10:30:00Z",
+    "endTime": "2024-01-23T11:00:00Z",
+    "location": "Phone",
+    "description": "Discuss technical integration requirements and timeline."
+  },
+  {
+    "Id": 3,
+    "title": "Contract Review - GlobalTech",
+    "type": "meeting",
+    "relatedTo": "3",
+    "relatedType": "deal",
+    "startTime": "2024-01-24T15:00:00Z",
+    "endTime": "2024-01-24T16:30:00Z",
+    "location": "Client Office",
+    "description": "Review contract terms and negotiate final details."
+  },
+  {
+    "Id": 4,
+    "title": "Proposal Deadline - RetailPlus",
+    "type": "deadline",
+    "relatedTo": "6",
+    "relatedType": "deal",
+    "startTime": "2024-01-25T17:00:00Z",
+    "endTime": "2024-01-25T17:00:00Z",
+    "location": "",
+    "description": "Final deadline for proposal submission."
+  },
+  {
+    "Id": 5,
+    "title": "Discovery Call - StartupLab",
+    "type": "call",
+    "relatedTo": "3",
+    "relatedType": "lead",
+    "startTime": "2024-01-26T11:00:00Z",
+    "endTime": "2024-01-26T11:45:00Z",
+    "location": "Phone",
+    "description": "Initial discovery call to understand requirements."
+  },
+  {
+    "Id": 6,
+    "title": "Weekly Pipeline Review",
+    "type": "meeting",
+    "relatedTo": "",
+    "relatedType": "",
+    "startTime": "2024-01-26T09:00:00Z",
+    "endTime": "2024-01-26T10:00:00Z",
+    "location": "Conference Room A",
+    "description": "Team meeting to review pipeline progress and strategy."
+  },
+  {
+    "Id": 7,
+    "title": "Implementation Kickoff - MarketLeader",
+    "type": "meeting",
+    "relatedTo": "7",
+    "relatedType": "deal",
+    "startTime": "2024-02-01T13:00:00Z",
+    "endTime": "2024-02-01T14:30:00Z",
+    "location": "Zoom Meeting",
+    "description": "Project kickoff meeting for successful deal implementation."
+  }
+]
