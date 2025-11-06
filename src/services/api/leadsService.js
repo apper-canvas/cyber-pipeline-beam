@@ -1,9 +1,6 @@
 import leadsData from "@/services/mockData/leads.json";
-import React from "react";
-import Error from "@/components/ui/Error";
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-
 export const leadsService = {
   async getAll() {
     await delay(300);
@@ -63,9 +60,9 @@ export const leadsService = {
   async getByStatus(status) {
     await delay(200);
     return leadsData.filter(lead => lead.status === status).map(lead => ({ ...lead }));
-  },
+},
 
-async getBySource(source) {
+  async getBySource(source) {
     await delay(200);
     return leadsData.filter(lead => lead.source === source).map(lead => ({ ...lead }));
   },
@@ -99,3 +96,4 @@ async getBySource(source) {
       overall: overallWinRate
     };
   }
+};
