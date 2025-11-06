@@ -258,31 +258,52 @@ setNewLead({
               <table className="w-full">
                 <thead className="bg-slate-50 border-b border-slate-200">
 <tr>
-<th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
-                      Product Name
+<th className="px-4 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                      Name
                     </th>
-                    <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                    <th className="px-4 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
                       Company
                     </th>
-                    <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                    <th className="px-4 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                      Website URL
+                    </th>
+                    <th className="px-4 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                      LinkedIn URL
+                    </th>
+                    <th className="px-4 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                      Team Size
+                    </th>
+                    <th className="px-4 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                      ARR
+                    </th>
+                    <th className="px-4 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                      Funding Type
+                    </th>
+                    <th className="px-4 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                      Category
+                    </th>
+                    <th className="px-4 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                      Edition
+                    </th>
+                    <th className="px-4 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                      Estimated Value
+                    </th>
+                    <th className="px-4 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
                       Source
                     </th>
-                    <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                    <th className="px-4 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
                       Status
                     </th>
-                    <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
-Value
-                    </th>
-                    <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                    <th className="px-4 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
                       Last Contact
                     </th>
-                    <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                    <th className="px-4 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
                       Sales Rep
                     </th>
-                    <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                    <th className="px-4 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
                       Notes
                     </th>
-                    <th className="px-6 py-4 text-right text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                    <th className="px-4 py-4 text-right text-xs font-semibold text-slate-600 uppercase tracking-wider">
                       Actions
                     </th>
                   </tr>
@@ -297,27 +318,79 @@ Value
                       className="hover:bg-slate-50 transition-colors cursor-pointer"
                       onClick={() => setSelectedLead(lead)}
                     >
-                      <td className="px-6 py-4">
+<td className="px-4 py-4">
                         <div className="flex items-center">
-                          <div className="w-10 h-10 bg-gradient-to-r from-primary-500 to-primary-600 rounded-full flex items-center justify-center text-white font-medium text-sm">
+                          <div className="w-8 h-8 bg-gradient-to-r from-primary-500 to-primary-600 rounded-full flex items-center justify-center text-white font-medium text-xs">
                             {lead.name.split(" ").map(n => n[0]).join("").toUpperCase()}
                           </div>
-                          <div className="ml-3">
-<p className="text-sm font-medium text-slate-900">{lead.name}</p>
+                          <div className="ml-2">
+                            <p className="text-xs font-medium text-slate-900">{lead.name}</p>
                           </div>
                         </div>
                       </td>
-                      <td className="px-6 py-4">
-<div>
-                          <p className="text-sm font-medium text-slate-900">{lead.company}</p>
+                      <td className="px-4 py-4">
+                        <div>
+                          <p className="text-xs font-medium text-slate-900">{lead.company}</p>
                         </div>
                       </td>
-                      <td className="px-6 py-4">
-                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-800">
+                      <td className="px-4 py-4">
+                        <a 
+                          href={lead.websiteUrl} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="text-xs text-primary-600 hover:text-primary-800 underline truncate max-w-24 block"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          {lead.websiteUrl?.replace('https://', '') || 'N/A'}
+                        </a>
+                      </td>
+                      <td className="px-4 py-4">
+                        <a 
+                          href={lead.linkedinUrl} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="text-xs text-primary-600 hover:text-primary-800 underline truncate max-w-24 block"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          {lead.linkedinUrl ? 'LinkedIn' : 'N/A'}
+                        </a>
+                      </td>
+                      <td className="px-4 py-4">
+                        <span className="text-xs text-slate-900">
+                          {lead.teamSize || 'N/A'}
+                        </span>
+                      </td>
+                      <td className="px-4 py-4">
+                        <span className="text-xs font-medium text-slate-900">
+                          ${lead.arr?.toLocaleString() || 'N/A'}
+                        </span>
+                      </td>
+                      <td className="px-4 py-4">
+                        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                          {lead.fundingType || 'N/A'}
+                        </span>
+                      </td>
+                      <td className="px-4 py-4">
+                        <span className="text-xs text-slate-600">
+                          {lead.category || 'N/A'}
+                        </span>
+                      </td>
+                      <td className="px-4 py-4">
+                        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                          {lead.edition || 'N/A'}
+                        </span>
+                      </td>
+                      <td className="px-4 py-4">
+                        <span className="text-xs font-medium text-slate-900">
+                          ${lead.estimatedValue?.toLocaleString() || 0}
+                        </span>
+                      </td>
+                      <td className="px-4 py-4">
+                        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-800">
                           {lead.source}
                         </span>
                       </td>
-                      <td className="px-6 py-4">
+                      <td className="px-4 py-4">
                         <select
                           value={lead.status}
                           onChange={(e) => {
@@ -325,7 +398,7 @@ Value
                             handleStatusUpdate(lead.Id, e.target.value);
                           }}
                           onClick={(e) => e.stopPropagation()}
-                          className="text-sm border-0 bg-transparent focus:ring-0 focus:outline-none cursor-pointer"
+                          className="text-xs border-0 bg-transparent focus:ring-0 focus:outline-none cursor-pointer"
                         >
                           <option value="new">New</option>
                           <option value="contacted">Contacted</option>
@@ -334,34 +407,21 @@ Value
                         </select>
                         <StatusBadge status={lead.status} type="lead" />
                       </td>
-                      <td className="px-6 py-4">
-                        <span className="text-sm font-medium text-slate-900">
-                          ${lead.value?.toLocaleString() || 0}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4">
-                        <span className="text-sm text-slate-600">
-                          {lead.createdAt 
-                            ? format(new Date(lead.createdAt), "MMM dd, yyyy")
-                            : "Unknown"
-                          }
-                        </span>
-                      </td>
-<td className="px-6 py-4">
-                        <span className="text-sm text-slate-600">
+                      <td className="px-4 py-4">
+                        <span className="text-xs text-slate-600">
                           {lead.lastContactedAt 
                             ? format(new Date(lead.lastContactedAt), "MMM dd, yyyy")
                             : "Never"
                           }
                         </span>
                       </td>
-                      <td className="px-6 py-4">
-                        <span className="text-sm font-medium text-slate-900">
+                      <td className="px-4 py-4">
+                        <span className="text-xs font-medium text-slate-900">
                           {lead.assignedTo || "Unassigned"}
                         </span>
                       </td>
-                      <td className="px-6 py-4">
-                        <div className="text-sm text-slate-600 max-w-xs truncate" title={lead.notes}>
+                      <td className="px-4 py-4">
+                        <div className="text-xs text-slate-600 max-w-20 truncate" title={lead.notes}>
                           {lead.notes || "No notes"}
                         </div>
                       </td>

@@ -12,7 +12,15 @@
     "assignedTo": "John Smith",
     "createdAt": "2024-01-15T10:00:00Z",
     "lastContactedAt": "2024-01-18T14:30:00Z",
-    "notes": "Interested in enterprise package. Follow up next week."
+    "notes": "Interested in enterprise package. Follow up next week.",
+    "websiteUrl": "https://techcorp.com",
+    "linkedinUrl": "https://linkedin.com/company/techcorp-solutions",
+    "teamSize": 150,
+    "arr": 2400000,
+    "fundingType": "Series B",
+    "category": "Technology",
+    "edition": "Enterprise",
+    "estimatedValue": 25000
   },
   {
     "Id": 2,
@@ -27,7 +35,15 @@
     "assignedTo": "Sarah Williams",
     "createdAt": "2024-01-16T09:30:00Z",
     "lastContactedAt": "2024-01-17T11:45:00Z",
-    "notes": "Demo scheduled for Friday. Very interested in API integration features."
+    "notes": "Demo scheduled for Friday. Very interested in API integration features.",
+    "websiteUrl": "https://innovatedev.com",
+    "linkedinUrl": "https://linkedin.com/company/innovatedev",
+    "teamSize": 75,
+    "arr": 1800000,
+    "fundingType": "Series A",
+    "category": "Software Development",
+    "edition": "Professional",
+    "estimatedValue": 45000
   },
   {
     "Id": 3,
@@ -42,7 +58,15 @@
     "assignedTo": "Mike Davis",
     "createdAt": "2024-01-18T16:20:00Z",
     "lastContactedAt": null,
-    "notes": "Referred by existing client. Needs solution for small team."
+    "notes": "Referred by existing client. Needs solution for small team.",
+    "websiteUrl": "https://startuplab.io",
+    "linkedinUrl": "https://linkedin.com/company/startuplab",
+    "teamSize": 12,
+    "arr": 240000,
+    "fundingType": "Seed",
+    "category": "Startup Incubator",
+    "edition": "Starter",
+    "estimatedValue": 15000
   },
   {
     "Id": 4,
@@ -57,7 +81,15 @@
     "assignedTo": "Lisa Anderson",
     "createdAt": "2024-01-10T08:15:00Z",
     "lastContactedAt": "2024-01-19T13:20:00Z",
-    "notes": "Large enterprise deal. Decision timeline is Q2. Multiple stakeholders involved."
+    "notes": "Large enterprise deal. Decision timeline is Q2. Multiple stakeholders involved.",
+    "websiteUrl": "https://globaltech-industries.com",
+    "linkedinUrl": "https://linkedin.com/company/globaltech-industries",
+    "teamSize": 500,
+    "arr": 12000000,
+    "fundingType": "Public",
+    "category": "Manufacturing",
+    "edition": "Enterprise",
+    "estimatedValue": 75000
   },
   {
     "Id": 5,
@@ -72,7 +104,15 @@
     "assignedTo": "John Smith",
     "createdAt": "2024-01-17T12:45:00Z",
     "lastContactedAt": "2024-01-18T09:30:00Z",
-    "notes": "Looking for design collaboration tools. Budget constraints mentioned."
+    "notes": "Looking for design collaboration tools. Budget constraints mentioned.",
+    "websiteUrl": "https://creativedesignstudio.com",
+    "linkedinUrl": "https://linkedin.com/company/creative-design-studio",
+    "teamSize": 25,
+    "arr": 450000,
+    "fundingType": "Bootstrapped",
+    "category": "Creative Services",
+    "edition": "Basic",
+    "estimatedValue": 8000
   },
   {
     "Id": 6,
@@ -87,7 +127,15 @@
     "assignedTo": "Sarah Williams",
     "createdAt": "2024-01-12T14:30:00Z",
     "lastContactedAt": "2024-01-15T16:45:00Z",
-    "notes": "Not a good fit for our solution. Looking for different functionality."
+    "notes": "Not a good fit for our solution. Looking for different functionality.",
+    "websiteUrl": "https://financepro.com",
+    "linkedinUrl": "https://linkedin.com/company/financepro",
+    "teamSize": 200,
+    "arr": 8500000,
+    "fundingType": "Series C",
+    "category": "Financial Services",
+    "edition": "Enterprise",
+    "estimatedValue": 0
   },
   {
     "Id": 7,
@@ -102,7 +150,15 @@
     "assignedTo": "Mike Davis",
     "createdAt": "2024-01-19T11:20:00Z",
     "lastContactedAt": null,
-    "notes": "Downloaded whitepaper. Healthcare industry focus."
+    "notes": "Downloaded whitepaper. Healthcare industry focus.",
+    "websiteUrl": "https://healthtechsolutions.com",
+    "linkedinUrl": "https://linkedin.com/company/healthtech-solutions",
+    "teamSize": 85,
+    "arr": 3200000,
+    "fundingType": "Series A",
+    "category": "Healthcare Technology",
+    "edition": "Professional",
+    "estimatedValue": 32000
   },
   {
     "Id": 8,
@@ -117,6 +173,14 @@
     "assignedTo": "Lisa Anderson",
     "createdAt": "2024-01-14T15:10:00Z",
     "lastContactedAt": "2024-01-16T10:20:00Z",
-    "notes": "Retail chain looking to streamline operations. Multiple locations."
+    "notes": "Retail chain looking to streamline operations. Multiple locations.",
+    "websiteUrl": "https://retailplus.com",
+    "linkedinUrl": "https://linkedin.com/company/retailplus",
+    "teamSize": 300,
+    "arr": 5400000,
+    "fundingType": "Private Equity",
+    "category": "Retail",
+    "edition": "Professional",
+    "estimatedValue": 18000
   }
 ]
