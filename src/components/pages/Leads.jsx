@@ -761,7 +761,30 @@ className="w-full max-w-2xl bg-white rounded-xl shadow-xl border border-slate-20
                 </div>
                 
                 <div className="p-6 space-y-6">
-                  <div className="grid grid-cols-2 gap-6">
+<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <h4 className="text-sm font-semibold text-slate-900 mb-3">Contact Information</h4>
+                      <div className="space-y-2">
+                        {selectedLead.email && (
+                          <div className="flex justify-between">
+                            <span className="text-sm text-slate-600">Email:</span>
+                            <span className="text-sm font-medium text-blue-600">{selectedLead.email}</span>
+                          </div>
+                        )}
+                        {selectedLead.phone && (
+                          <div className="flex justify-between">
+                            <span className="text-sm text-slate-600">Phone:</span>
+                            <span className="text-sm font-medium">{selectedLead.phone}</span>
+                          </div>
+                        )}
+                        {selectedLead.address && (
+                          <div className="flex justify-between">
+                            <span className="text-sm text-slate-600">Address:</span>
+                            <span className="text-sm font-medium text-right max-w-xs">{selectedLead.address}</span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
                     <div>
                       <h4 className="text-sm font-semibold text-slate-900 mb-3">Lead Details</h4>
                       <div className="space-y-2">
@@ -777,15 +800,41 @@ className="w-full max-w-2xl bg-white rounded-xl shadow-xl border border-slate-20
                           <span className="text-sm text-slate-600">Value:</span>
                           <span className="text-sm font-medium">${selectedLead.value?.toLocaleString() || 0}</span>
                         </div>
+                        {selectedLead.priority && (
+                          <div className="flex justify-between">
+                            <span className="text-sm text-slate-600">Priority:</span>
+                            <span className={`text-sm font-medium ${
+                              selectedLead.priority === 'High' ? 'text-red-600' :
+                              selectedLead.priority === 'Medium' ? 'text-yellow-600' :
+                              'text-green-600'
+                            }`}>{selectedLead.priority}</span>
+                          </div>
+                        )}
+                        {selectedLead.createdAt && (
+                          <div className="flex justify-between">
+                            <span className="text-sm text-slate-600">Created:</span>
+                            <span className="text-sm font-medium">
+                              {new Date(selectedLead.createdAt).toLocaleDateString()}
+                            </span>
+                          </div>
+                        )}
+                        {selectedLead.lastContact && (
+                          <div className="flex justify-between">
+                            <span className="text-sm text-slate-600">Last Contact:</span>
+                            <span className="text-sm font-medium">
+                              {new Date(selectedLead.lastContact).toLocaleDateString()}
+                            </span>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>
                   
                   {selectedLead.notes && (
-                    <div>
+                    <div className="mt-6">
                       <h4 className="text-sm font-semibold text-slate-900 mb-3">Notes</h4>
                       <div className="p-3 bg-slate-50 rounded-lg">
-                        <p className="text-sm text-slate-600">{selectedLead.notes}</p>
+                        <p className="text-sm text-slate-600 whitespace-pre-wrap">{selectedLead.notes}</p>
                       </div>
                     </div>
                   )}
