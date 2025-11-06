@@ -414,12 +414,12 @@ onClick={(e) => {
               className="fixed inset-0 bg-black/20 backdrop-blur-sm z-50 flex items-center justify-center p-4"
               onClick={() => setShowAddModal(false)}
             >
-              <motion.div
+<motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 onClick={(e) => e.stopPropagation()}
-                className="w-full max-w-2xl bg-white rounded-xl shadow-xl border border-slate-200"
+                className="w-full max-w-2xl bg-white rounded-xl shadow-xl border border-slate-200 max-h-[90vh] flex flex-col"
               >
                 <div className="p-6 border-b border-slate-200">
                   <h3 className="text-lg font-semibold text-slate-900">Add New Lead</h3>
