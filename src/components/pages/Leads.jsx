@@ -286,12 +286,15 @@ setNewLead({
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead className="bg-slate-50 border-b border-slate-200">
-                  <tr>
+<tr>
                     <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
                       Contact
                     </th>
                     <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
                       Company
+                    </th>
+                    <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                      Phone
                     </th>
                     <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
                       Source
@@ -301,6 +304,12 @@ setNewLead({
                     </th>
                     <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
                       Value
+                    </th>
+                    <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                      Assigned To
+                    </th>
+                    <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                      Created
                     </th>
                     <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
                       Last Contact
@@ -337,6 +346,9 @@ setNewLead({
                           <p className="text-sm text-slate-600">{lead.position}</p>
                         </div>
                       </td>
+<td className="px-6 py-4">
+                        <span className="text-sm text-slate-600">{lead.phone}</span>
+                      </td>
                       <td className="px-6 py-4">
                         <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-800">
                           {lead.source}
@@ -362,6 +374,17 @@ setNewLead({
                       <td className="px-6 py-4">
                         <span className="text-sm font-medium text-slate-900">
                           ${lead.value?.toLocaleString() || 0}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4">
+                        <span className="text-sm text-slate-600">{lead.assignedTo}</span>
+                      </td>
+                      <td className="px-6 py-4">
+                        <span className="text-sm text-slate-600">
+                          {lead.createdAt 
+                            ? format(new Date(lead.createdAt), "MMM dd, yyyy")
+                            : "Unknown"
+                          }
                         </span>
                       </td>
                       <td className="px-6 py-4">
