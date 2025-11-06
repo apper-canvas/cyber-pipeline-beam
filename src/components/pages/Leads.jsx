@@ -15,17 +15,27 @@ import Loading from "@/components/ui/Loading";
 const Leads = () => {
   const [leads, setLeads] = useState([]);
   const [filteredLeads, setFilteredLeads] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
-const [sourceFilter, setSourceFilter] = useState("all");
+  const [sourceFilter, setSourceFilter] = useState("all");
   const [selectedLead, setSelectedLead] = useState(null);
+  const [showNewLeadModal, setShowNewLeadModal] = useState(false);
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEmailComposer, setShowEmailComposer] = useState(false);
+  const [showEmailTemplate, setShowEmailTemplate] = useState(false);
   const [showTemplateModal, setShowTemplateModal] = useState(false);
   const [emailLead, setEmailLead] = useState(null);
-const [newLead, setNewLead] = useState({
+  const [sortBy, setSortBy] = useState("createdAt");
+  const [sortOrder, setSortOrder] = useState("desc");
+  const [filterStatus, setFilterStatus] = useState("");
+  const [editingCell, setEditingCell] = useState(null);
+  const [editingValue, setEditingValue] = useState("");
+  const [savingCell, setSavingCell] = useState(null);
+  const [newLead, setNewLead] = useState({
     name: "",
     company: "",
     source: "Website",
@@ -137,7 +147,7 @@ setNewLead({
     }
   };
 
-  const handleStatusUpdate = async (leadId, newStatus) => {
+const handleStatusUpdate = async (leadId, newStatus) => {
     try {
       const updatedLead = await leadsService.update(leadId, { 
         status: newStatus,
@@ -151,6 +161,55 @@ setNewLead({
       toast.success("Lead status updated!");
     } catch (err) {
       toast.error(err.message || "Failed to update lead status");
+    }
+  };
+
+  const handleCellEdit = (leadId, field, currentValue) => {
+    setEditingCell(`${leadId}-${field}`);
+    setEditingValue(currentValue || "");
+  };
+
+  const handleCellSave = async (leadId, field) => {
+    const cellKey = `${leadId}-${field}`;
+    setSavingCell(cellKey);
+    
+    try {
+      let valueToSave = editingValue;
+      
+      // Convert numeric fields
+      if (field === 'teamSize' || field === 'arr') {
+        const numValue = parseInt(editingValue);
+        valueToSave = isNaN(numValue) ? null : numValue;
+      }
+      
+      const updatedLead = await leadsService.update(leadId, { 
+        [field]: valueToSave 
+      });
+      
+      setLeads(prev => prev.map(lead => 
+        lead.Id === leadId ? updatedLead : lead
+      ));
+      
+      setEditingCell(null);
+      setEditingValue("");
+      toast.success("Lead updated successfully!");
+    } catch (err) {
+      toast.error(err.message || "Failed to update lead");
+    } finally {
+      setSavingCell(null);
+    }
+  };
+
+  const handleCellCancel = () => {
+    setEditingCell(null);
+    setEditingValue("");
+  };
+
+  const handleKeyPress = (e, leadId, field) => {
+    if (e.key === 'Enter') {
+      handleCellSave(leadId, field);
+    } else if (e.key === 'Escape') {
+      handleCellCancel();
     }
   };
 
@@ -324,13 +383,79 @@ setNewLead({
                             {lead.name.split(" ").map(n => n[0]).join("").toUpperCase()}
                           </div>
                           <div className="ml-2">
-                            <p className="text-xs font-medium text-slate-900">{lead.name}</p>
+                            {editingCell === `${lead.Id}-name` ? (
+                              <div className="flex items-center gap-1">
+                                <Input
+                                  value={editingValue}
+                                  onChange={(e) => setEditingValue(e.target.value)}
+                                  onKeyDown={(e) => handleKeyPress(e, lead.Id, 'name')}
+                                  className="text-xs h-6 w-24"
+                                  autoFocus
+                                />
+                                <button
+                                  onClick={() => handleCellSave(lead.Id, 'name')}
+                                  disabled={savingCell === `${lead.Id}-name`}
+                                  className="p-1 text-green-600 hover:text-green-800 disabled:opacity-50"
+                                >
+                                  <ApperIcon name="Check" className="w-3 h-3" />
+                                </button>
+                                <button
+                                  onClick={handleCellCancel}
+                                  className="p-1 text-red-600 hover:text-red-800"
+                                >
+                                  <ApperIcon name="X" className="w-3 h-3" />
+                                </button>
+                              </div>
+                            ) : (
+                              <p 
+                                className="text-xs font-medium text-slate-900 cursor-pointer hover:bg-slate-100 px-1 py-0.5 rounded"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleCellEdit(lead.Id, 'name', lead.name);
+                                }}
+                              >
+                                {lead.name}
+                              </p>
+                            )}
                           </div>
                         </div>
                       </td>
-                      <td className="px-4 py-4">
+<td className="px-4 py-4">
                         <div>
-                          <p className="text-xs font-medium text-slate-900">{lead.company}</p>
+                          {editingCell === `${lead.Id}-company` ? (
+                            <div className="flex items-center gap-1">
+                              <Input
+                                value={editingValue}
+                                onChange={(e) => setEditingValue(e.target.value)}
+                                onKeyDown={(e) => handleKeyPress(e, lead.Id, 'company')}
+                                className="text-xs h-6 w-24"
+                                autoFocus
+                              />
+                              <button
+                                onClick={() => handleCellSave(lead.Id, 'company')}
+                                disabled={savingCell === `${lead.Id}-company`}
+                                className="p-1 text-green-600 hover:text-green-800 disabled:opacity-50"
+                              >
+                                <ApperIcon name="Check" className="w-3 h-3" />
+                              </button>
+                              <button
+                                onClick={handleCellCancel}
+                                className="p-1 text-red-600 hover:text-red-800"
+                              >
+                                <ApperIcon name="X" className="w-3 h-3" />
+                              </button>
+                            </div>
+                          ) : (
+                            <p 
+                              className="text-xs font-medium text-slate-900 cursor-pointer hover:bg-slate-100 px-1 py-0.5 rounded"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleCellEdit(lead.Id, 'company', lead.company);
+                              }}
+                            >
+                              {lead.company}
+                            </p>
+                          )}
                         </div>
                       </td>
                       <td className="px-4 py-4">
@@ -355,30 +480,156 @@ setNewLead({
                           {lead.linkedinUrl ? 'LinkedIn' : 'N/A'}
                         </a>
                       </td>
-                      <td className="px-4 py-4">
-                        <span className="text-xs text-slate-900">
-                          {lead.teamSize || 'N/A'}
-                        </span>
+<td className="px-4 py-4">
+                        {editingCell === `${lead.Id}-teamSize` ? (
+                          <div className="flex items-center gap-1">
+                            <Input
+                              value={editingValue}
+                              onChange={(e) => setEditingValue(e.target.value)}
+                              onKeyDown={(e) => handleKeyPress(e, lead.Id, 'teamSize')}
+                              className="text-xs h-6 w-20"
+                              type="number"
+                              autoFocus
+                            />
+                            <button
+                              onClick={() => handleCellSave(lead.Id, 'teamSize')}
+                              disabled={savingCell === `${lead.Id}-teamSize`}
+                              className="p-1 text-green-600 hover:text-green-800 disabled:opacity-50"
+                            >
+                              <ApperIcon name="Check" className="w-3 h-3" />
+                            </button>
+                            <button
+                              onClick={handleCellCancel}
+                              className="p-1 text-red-600 hover:text-red-800"
+                            >
+                              <ApperIcon name="X" className="w-3 h-3" />
+                            </button>
+                          </div>
+                        ) : (
+                          <span 
+                            className="text-xs text-slate-900 cursor-pointer hover:bg-slate-100 px-1 py-0.5 rounded"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleCellEdit(lead.Id, 'teamSize', lead.teamSize);
+                            }}
+                          >
+                            {lead.teamSize || 'N/A'}
+                          </span>
+                        )}
                       </td>
-                      <td className="px-4 py-4">
-                        <span className="text-xs font-medium text-slate-900">
-                          ${lead.arr?.toLocaleString() || 'N/A'}
-                        </span>
+<td className="px-4 py-4">
+                        {editingCell === `${lead.Id}-arr` ? (
+                          <div className="flex items-center gap-1">
+                            <Input
+                              value={editingValue}
+                              onChange={(e) => setEditingValue(e.target.value)}
+                              onKeyDown={(e) => handleKeyPress(e, lead.Id, 'arr')}
+                              className="text-xs h-6 w-20"
+                              type="number"
+                              autoFocus
+                            />
+                            <button
+                              onClick={() => handleCellSave(lead.Id, 'arr')}
+                              disabled={savingCell === `${lead.Id}-arr`}
+                              className="p-1 text-green-600 hover:text-green-800 disabled:opacity-50"
+                            >
+                              <ApperIcon name="Check" className="w-3 h-3" />
+                            </button>
+                            <button
+                              onClick={handleCellCancel}
+                              className="p-1 text-red-600 hover:text-red-800"
+                            >
+                              <ApperIcon name="X" className="w-3 h-3" />
+                            </button>
+                          </div>
+                        ) : (
+                          <span 
+                            className="text-xs font-medium text-slate-900 cursor-pointer hover:bg-slate-100 px-1 py-0.5 rounded"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleCellEdit(lead.Id, 'arr', lead.arr);
+                            }}
+                          >
+                            ${lead.arr?.toLocaleString() || 'N/A'}
+                          </span>
+                        )}
                       </td>
                       <td className="px-4 py-4">
                         <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
                           {lead.fundingType || 'N/A'}
                         </span>
                       </td>
-                      <td className="px-4 py-4">
-                        <span className="text-xs text-slate-600">
-                          {lead.category || 'N/A'}
-                        </span>
+<td className="px-4 py-4">
+                        {editingCell === `${lead.Id}-category` ? (
+                          <div className="flex items-center gap-1">
+                            <Input
+                              value={editingValue}
+                              onChange={(e) => setEditingValue(e.target.value)}
+                              onKeyDown={(e) => handleKeyPress(e, lead.Id, 'category')}
+                              className="text-xs h-6 w-20"
+                              autoFocus
+                            />
+                            <button
+                              onClick={() => handleCellSave(lead.Id, 'category')}
+                              disabled={savingCell === `${lead.Id}-category`}
+                              className="p-1 text-green-600 hover:text-green-800 disabled:opacity-50"
+                            >
+                              <ApperIcon name="Check" className="w-3 h-3" />
+                            </button>
+                            <button
+                              onClick={handleCellCancel}
+                              className="p-1 text-red-600 hover:text-red-800"
+                            >
+                              <ApperIcon name="X" className="w-3 h-3" />
+                            </button>
+                          </div>
+                        ) : (
+                          <span 
+                            className="text-xs text-slate-600 cursor-pointer hover:bg-slate-100 px-1 py-0.5 rounded"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleCellEdit(lead.Id, 'category', lead.category);
+                            }}
+                          >
+                            {lead.category || 'N/A'}
+                          </span>
+                        )}
                       </td>
-                      <td className="px-4 py-4">
-                        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                          {lead.edition || 'N/A'}
-                        </span>
+<td className="px-4 py-4">
+                        {editingCell === `${lead.Id}-edition` ? (
+                          <div className="flex items-center gap-1">
+                            <Input
+                              value={editingValue}
+                              onChange={(e) => setEditingValue(e.target.value)}
+                              onKeyDown={(e) => handleKeyPress(e, lead.Id, 'edition')}
+                              className="text-xs h-6 w-20"
+                              autoFocus
+                            />
+                            <button
+                              onClick={() => handleCellSave(lead.Id, 'edition')}
+                              disabled={savingCell === `${lead.Id}-edition`}
+                              className="p-1 text-green-600 hover:text-green-800 disabled:opacity-50"
+                            >
+                              <ApperIcon name="Check" className="w-3 h-3" />
+                            </button>
+                            <button
+                              onClick={handleCellCancel}
+                              className="p-1 text-red-600 hover:text-red-800"
+                            >
+                              <ApperIcon name="X" className="w-3 h-3" />
+                            </button>
+                          </div>
+                        ) : (
+                          <span 
+                            className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 cursor-pointer hover:bg-green-200"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleCellEdit(lead.Id, 'edition', lead.edition);
+                            }}
+                          >
+                            {lead.edition || 'N/A'}
+                          </span>
+                        )}
                       </td>
                       <td className="px-4 py-4">
                         <span className="text-xs font-medium text-slate-900">
@@ -420,10 +671,42 @@ setNewLead({
                           {lead.assignedTo || "Unassigned"}
                         </span>
                       </td>
-                      <td className="px-4 py-4">
-                        <div className="text-xs text-slate-600 max-w-20 truncate" title={lead.notes}>
-                          {lead.notes || "No notes"}
-                        </div>
+<td className="px-4 py-4">
+                        {editingCell === `${lead.Id}-notes` ? (
+                          <div className="flex items-center gap-1">
+                            <Input
+                              value={editingValue}
+                              onChange={(e) => setEditingValue(e.target.value)}
+                              onKeyDown={(e) => handleKeyPress(e, lead.Id, 'notes')}
+                              className="text-xs h-6 w-24"
+                              autoFocus
+                            />
+                            <button
+                              onClick={() => handleCellSave(lead.Id, 'notes')}
+                              disabled={savingCell === `${lead.Id}-notes`}
+                              className="p-1 text-green-600 hover:text-green-800 disabled:opacity-50"
+                            >
+                              <ApperIcon name="Check" className="w-3 h-3" />
+                            </button>
+                            <button
+                              onClick={handleCellCancel}
+                              className="p-1 text-red-600 hover:text-red-800"
+                            >
+                              <ApperIcon name="X" className="w-3 h-3" />
+                            </button>
+                          </div>
+                        ) : (
+                          <div 
+                            className="text-xs text-slate-600 max-w-20 truncate cursor-pointer hover:bg-slate-100 px-1 py-0.5 rounded" 
+                            title={lead.notes}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleCellEdit(lead.Id, 'notes', lead.notes);
+                            }}
+                          >
+                            {lead.notes || "No notes"}
+                          </div>
+                        )}
                       </td>
                       <td className="px-6 py-4 text-right">
                         <div className="flex items-center justify-end space-x-2">
