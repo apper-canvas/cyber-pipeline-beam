@@ -112,11 +112,13 @@ const sourceOptions = [
     "Natural Language Processing", "Computer Vision", "Data Science", "Big Data",
     "Data Mining", "Predictive Analytics"
   ];
-
-  const editionOptions = [
+const editionOptions = [
     "Black Edition", "Collector's Edition", "Limited Edition"
   ];
 
+  const fundingTypeOptions = [
+    "Bootstrapped", "Pre-seed", "Y Combinator", "Angel", "Series A", "Series B", "Series C"
+  ];
   const loadLeads = async () => {
     setIsLoading(true);
     setError("");
@@ -406,9 +408,7 @@ value={statusFilter}
                     </th>
                     <th className="px-4 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
                       ARR
-                    </th>
-                    <th className="px-4 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
-                      Funding Type
+ARR
                     </th>
                     <th className="px-4 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
                       Category
@@ -417,13 +417,9 @@ value={statusFilter}
                       Edition
                     </th>
                     <th className="px-4 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
-                      Estimated Value
+                      Funding Type
                     </th>
                     <th className="px-4 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
-                      Source
-                    </th>
-                    <th className="px-4 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
-                      Status
                     </th>
                     <th className="px-4 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
                       Last Contact
@@ -714,12 +710,7 @@ className="hover:bg-slate-50 transition-colors"
                           >
                             ${lead.arr?.toLocaleString() || 'N/A'}
                           </span>
-                        )}
-                      </td>
-                      <td className="px-4 py-4">
-                        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                          {lead.fundingType || 'N/A'}
-                        </span>
+)}
                       </td>
 <td className="px-4 py-4">
                         {editingCell === `${lead.Id}-category` ? (
@@ -805,17 +796,50 @@ className="hover:bg-slate-50 transition-colors"
                           >
                             {lead.edition || 'N/A'}
                           </span>
+)}
+                      </td>
+                      <td className="px-4 py-4">
+                        {editingCell === `${lead.Id}-fundingType` ? (
+                          <div className="flex items-center gap-1">
+                            <select
+                              value={editingValue}
+                              onChange={(e) => setEditingValue(e.target.value)}
+                              onKeyDown={(e) => handleKeyPress(e, lead.Id, 'fundingType')}
+                              className="text-xs h-6 w-32 border-0 bg-transparent focus:ring-0 focus:outline-none cursor-pointer"
+                              autoFocus
+                            >
+                              <option value="">Select Funding Type</option>
+                              {fundingTypeOptions.map(option => (
+                                <option key={option} value={option}>
+                                  {option}
+                                </option>
+                              ))}
+                            </select>
+                            <button
+                              onClick={() => handleCellSave(lead.Id, 'fundingType')}
+                              disabled={savingCell === `${lead.Id}-fundingType`}
+                              className="p-1 text-green-600 hover:text-green-800 disabled:opacity-50"
+                            >
+                              <ApperIcon name="Check" className="w-3 h-3" />
+                            </button>
+                            <button
+                              onClick={handleCellCancel}
+                              className="p-1 text-red-600 hover:text-red-800"
+                            >
+                              <ApperIcon name="X" className="w-3 h-3" />
+                            </button>
+                          </div>
+                        ) : (
+                          <span 
+                            className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 cursor-pointer hover:bg-blue-200"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleCellEdit(lead.Id, 'fundingType', lead.fundingType);
+                            }}
+                          >
+                            {lead.fundingType || 'N/A'}
+                          </span>
                         )}
-                      </td>
-                      <td className="px-4 py-4">
-                        <span className="text-xs font-medium text-slate-900">
-                          ${lead.estimatedValue?.toLocaleString() || 0}
-                        </span>
-                      </td>
-                      <td className="px-4 py-4">
-                        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-800">
-                          {lead.source}
-                        </span>
                       </td>
                       <td className="px-4 py-4">
 <select
