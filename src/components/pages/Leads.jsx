@@ -39,25 +39,36 @@ const Leads = () => {
     name: "",
     company: "",
     source: "Website",
-    status: "new",
+status: "connected",
     value: "",
     notes: "",
     websiteUrl: "",
     teamSize: "",
     arr: "",
-    category: "",
+category: "",
     linkedinUrl: "",
     fundingType: "",
     edition: "",
     salesRep: ""
   });
 
-  const statusOptions = [
+const statusOptions = [
     { value: "all", label: "All Status" },
-    { value: "new", label: "New" },
-    { value: "contacted", label: "Contacted" },
-    { value: "qualified", label: "Qualified" },
-    { value: "unqualified", label: "Unqualified" }
+    { value: "connected", label: "Connected" },
+    { value: "locked", label: "Locked" },
+    { value: "meeting-booked", label: "Meeting Booked" },
+    { value: "meeting-done", label: "Meeting Done" },
+    { value: "negotiation", label: "Negotiation" },
+    { value: "closed", label: "Closed" },
+    { value: "lost", label: "Lost" },
+    { value: "launched-appsumo", label: "Launched on AppSumo" },
+    { value: "launched-prime", label: "Launched on Prime Club" },
+    { value: "keep-eye", label: "Keep an Eye" },
+    { value: "rejected", label: "Rejected" },
+    { value: "unsubscribed", label: "Unsubscribed" },
+    { value: "outdated", label: "Outdated" },
+    { value: "hotlist", label: "Hotlist" },
+    { value: "out-of-league", label: "Out of League" }
   ];
 
   const sourceOptions = [
@@ -135,7 +146,7 @@ setNewLead({
         websiteUrl: "",
         teamSize: "",
         arr: "",
-        category: "",
+category: "",
         linkedinUrl: "",
         fundingType: "",
         edition: "",
@@ -274,7 +285,7 @@ const handleCellEdit = (leadId, field, currentValue) => {
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-2">Status</label>
               <select
-                value={statusFilter}
+value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
                 className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               >
@@ -757,7 +768,7 @@ className="hover:bg-slate-50 transition-colors"
                         </span>
                       </td>
                       <td className="px-4 py-4">
-                        <select
+<select
                           value={lead.status}
                           onChange={(e) => {
                             e.stopPropagation();
@@ -766,10 +777,21 @@ className="hover:bg-slate-50 transition-colors"
                           onClick={(e) => e.stopPropagation()}
                           className="text-xs border-0 bg-transparent focus:ring-0 focus:outline-none cursor-pointer"
                         >
-                          <option value="new">New</option>
-                          <option value="contacted">Contacted</option>
-                          <option value="qualified">Qualified</option>
-                          <option value="unqualified">Unqualified</option>
+                          <option value="connected">Connected</option>
+                          <option value="locked">Locked</option>
+                          <option value="meeting-booked">Meeting Booked</option>
+                          <option value="meeting-done">Meeting Done</option>
+                          <option value="negotiation">Negotiation</option>
+                          <option value="closed">Closed</option>
+                          <option value="lost">Lost</option>
+                          <option value="launched-appsumo">Launched on AppSumo</option>
+                          <option value="launched-prime">Launched on Prime Club</option>
+                          <option value="keep-eye">Keep an Eye</option>
+                          <option value="rejected">Rejected</option>
+                          <option value="unsubscribed">Unsubscribed</option>
+                          <option value="outdated">Outdated</option>
+                          <option value="hotlist">Hotlist</option>
+                          <option value="out-of-league">Out of League</option>
                         </select>
                         <StatusBadge status={lead.status} type="lead" />
                       </td>
@@ -959,18 +981,130 @@ className="w-full max-w-2xl bg-white rounded-xl shadow-xl border border-slate-20
                           <label className="block text-sm font-medium text-slate-700 mb-2">
                             Category
                           </label>
-                          <select
+<select
                             value={newLead.category}
                             onChange={(e) => setNewLead({ ...newLead, category: e.target.value })}
                             className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                           >
                             <option value="">Select category</option>
-                            <option value="Enterprise">Enterprise</option>
-                            <option value="SMB">Small/Medium Business</option>
-                            <option value="Startup">Startup</option>
-                            <option value="Government">Government</option>
-                            <option value="Non-Profit">Non-Profit</option>
-                            <option value="Education">Education</option>
+                            <option value="Form Builder">Form Builder</option>
+                            <option value="CRM">CRM</option>
+                            <option value="Project Management">Project Management</option>
+                            <option value="Affiliate Management">Affiliate Management</option>
+                            <option value="Help Desk">Help Desk</option>
+                            <option value="Live Chat">Live Chat</option>
+                            <option value="Graphic Design">Graphic Design</option>
+                            <option value="WordPress Plugin">WordPress Plugin</option>
+                            <option value="VPN">VPN</option>
+                            <option value="Landing Page Builder">Landing Page Builder</option>
+                            <option value="Email Marketing">Email Marketing</option>
+                            <option value="Social Media Management">Social Media Management</option>
+                            <option value="SEO Tools">SEO Tools</option>
+                            <option value="Analytics">Analytics</option>
+                            <option value="E-commerce">E-commerce</option>
+                            <option value="Payment Processing">Payment Processing</option>
+                            <option value="Accounting Software">Accounting Software</option>
+                            <option value="HR Management">HR Management</option>
+                            <option value="Document Management">Document Management</option>
+                            <option value="Cloud Storage">Cloud Storage</option>
+                            <option value="Backup Solutions">Backup Solutions</option>
+                            <option value="Security Software">Security Software</option>
+                            <option value="Password Manager">Password Manager</option>
+                            <option value="Video Conferencing">Video Conferencing</option>
+                            <option value="Screen Recording">Screen Recording</option>
+                            <option value="File Sharing">File Sharing</option>
+                            <option value="Task Management">Task Management</option>
+                            <option value="Time Tracking">Time Tracking</option>
+                            <option value="Invoice Generator">Invoice Generator</option>
+                            <option value="Survey Tools">Survey Tools</option>
+                            <option value="Website Builder">Website Builder</option>
+                            <option value="App Development">App Development</option>
+                            <option value="API Tools">API Tools</option>
+                            <option value="Database Management">Database Management</option>
+                            <option value="Monitoring Tools">Monitoring Tools</option>
+                            <option value="Testing Tools">Testing Tools</option>
+                            <option value="Code Editor">Code Editor</option>
+                            <option value="Version Control">Version Control</option>
+                            <option value="Deployment Tools">Deployment Tools</option>
+                            <option value="Content Management">Content Management</option>
+                            <option value="Blogging Platform">Blogging Platform</option>
+                            <option value="Course Creation">Course Creation</option>
+                            <option value="Learning Management">Learning Management</option>
+                            <option value="Event Management">Event Management</option>
+                            <option value="Booking System">Booking System</option>
+                            <option value="Appointment Scheduling">Appointment Scheduling</option>
+                            <option value="Customer Support">Customer Support</option>
+                            <option value="Knowledge Base">Knowledge Base</option>
+                            <option value="FAQ Software">FAQ Software</option>
+                            <option value="Feedback Collection">Feedback Collection</option>
+                            <option value="Review Management">Review Management</option>
+                            <option value="Reputation Management">Reputation Management</option>
+                            <option value="Social Proof">Social Proof</option>
+                            <option value="A/B Testing">A/B Testing</option>
+                            <option value="Heat Mapping">Heat Mapping</option>
+                            <option value="User Behavior">User Behavior</option>
+                            <option value="Conversion Optimization">Conversion Optimization</option>
+                            <option value="Lead Generation">Lead Generation</option>
+                            <option value="Sales Automation">Sales Automation</option>
+                            <option value="Marketing Automation">Marketing Automation</option>
+                            <option value="Webinar Software">Webinar Software</option>
+                            <option value="Podcast Hosting">Podcast Hosting</option>
+                            <option value="Video Hosting">Video Hosting</option>
+                            <option value="Image Optimization">Image Optimization</option>
+                            <option value="CDN Service">CDN Service</option>
+                            <option value="Performance Optimization">Performance Optimization</option>
+                            <option value="Website Speed">Website Speed</option>
+                            <option value="Mobile App Testing">Mobile App Testing</option>
+                            <option value="Cross-browser Testing">Cross-browser Testing</option>
+                            <option value="Load Testing">Load Testing</option>
+                            <option value="Security Testing">Security Testing</option>
+                            <option value="Penetration Testing">Penetration Testing</option>
+                            <option value="Vulnerability Scanner">Vulnerability Scanner</option>
+                            <option value="SSL Certificate">SSL Certificate</option>
+                            <option value="Domain Registration">Domain Registration</option>
+                            <option value="Web Hosting">Web Hosting</option>
+                            <option value="VPS Hosting">VPS Hosting</option>
+                            <option value="Dedicated Server">Dedicated Server</option>
+                            <option value="Cloud Hosting">Cloud Hosting</option>
+                            <option value="CDN Hosting">CDN Hosting</option>
+                            <option value="Email Hosting">Email Hosting</option>
+                            <option value="Database Hosting">Database Hosting</option>
+                            <option value="Application Hosting">Application Hosting</option>
+                            <option value="WordPress Hosting">WordPress Hosting</option>
+                            <option value="E-commerce Hosting">E-commerce Hosting</option>
+                            <option value="Reseller Hosting">Reseller Hosting</option>
+                            <option value="Managed Hosting">Managed Hosting</option>
+                            <option value="Shared Hosting">Shared Hosting</option>
+                            <option value="Business Hosting">Business Hosting</option>
+                            <option value="Enterprise Hosting">Enterprise Hosting</option>
+                            <option value="Startup Tools">Startup Tools</option>
+                            <option value="Business Intelligence">Business Intelligence</option>
+                            <option value="Data Visualization">Data Visualization</option>
+                            <option value="Reporting Tools">Reporting Tools</option>
+                            <option value="Dashboard Software">Dashboard Software</option>
+                            <option value="Workflow Automation">Workflow Automation</option>
+                            <option value="Integration Platform">Integration Platform</option>
+                            <option value="API Management">API Management</option>
+                            <option value="Microservices">Microservices</option>
+                            <option value="Serverless Computing">Serverless Computing</option>
+                            <option value="Container Management">Container Management</option>
+                            <option value="Orchestration Tools">Orchestration Tools</option>
+                            <option value="DevOps Tools">DevOps Tools</option>
+                            <option value="CI/CD Pipeline">CI/CD Pipeline</option>
+                            <option value="Infrastructure Management">Infrastructure Management</option>
+                            <option value="Cloud Management">Cloud Management</option>
+                            <option value="Multi-cloud">Multi-cloud</option>
+                            <option value="Hybrid Cloud">Hybrid Cloud</option>
+                            <option value="Edge Computing">Edge Computing</option>
+                            <option value="IoT Platform">IoT Platform</option>
+                            <option value="Machine Learning">Machine Learning</option>
+                            <option value="Artificial Intelligence">Artificial Intelligence</option>
+                            <option value="Natural Language Processing">Natural Language Processing</option>
+                            <option value="Computer Vision">Computer Vision</option>
+                            <option value="Data Science">Data Science</option>
+                            <option value="Big Data">Big Data</option>
+                            <option value="Data Mining">Data Mining</option>
+                            <option value="Predictive Analytics">Predictive Analytics</option>
                           </select>
                         </div>
                         
@@ -996,18 +1130,26 @@ className="w-full max-w-2xl bg-white rounded-xl shadow-xl border border-slate-20
                           <label className="block text-sm font-medium text-slate-700 mb-2">
                             Status
                           </label>
-                          <select
+<select
                             value={newLead.status}
                             onChange={(e) => setNewLead({ ...newLead, status: e.target.value })}
                             className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                           >
-                            <option value="new">New</option>
-                            <option value="contacted">Contacted</option>
-                            <option value="qualified">Qualified</option>
-                            <option value="proposal">Proposal Sent</option>
-                            <option value="negotiation">In Negotiation</option>
-                            <option value="won">Won</option>
+                            <option value="connected">Connected</option>
+                            <option value="locked">Locked</option>
+                            <option value="meeting-booked">Meeting Booked</option>
+                            <option value="meeting-done">Meeting Done</option>
+                            <option value="negotiation">Negotiation</option>
+                            <option value="closed">Closed</option>
                             <option value="lost">Lost</option>
+                            <option value="launched-appsumo">Launched on AppSumo</option>
+                            <option value="launched-prime">Launched on Prime Club</option>
+                            <option value="keep-eye">Keep an Eye</option>
+                            <option value="rejected">Rejected</option>
+                            <option value="unsubscribed">Unsubscribed</option>
+                            <option value="outdated">Outdated</option>
+                            <option value="hotlist">Hotlist</option>
+                            <option value="out-of-league">Out of League</option>
                           </select>
                         </div>
                         
@@ -1015,20 +1157,19 @@ className="w-full max-w-2xl bg-white rounded-xl shadow-xl border border-slate-20
                           <label className="block text-sm font-medium text-slate-700 mb-2">
                             Funding Type
                           </label>
-                          <select
+<select
                             value={newLead.fundingType}
                             onChange={(e) => setNewLead({ ...newLead, fundingType: e.target.value })}
                             className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                           >
                             <option value="">Select funding type</option>
                             <option value="Bootstrapped">Bootstrapped</option>
-                            <option value="Pre-Seed">Pre-Seed</option>
-                            <option value="Seed">Seed</option>
+                            <option value="Pre-seed">Pre-seed</option>
+                            <option value="Y Combinator">Y Combinator</option>
+                            <option value="Angel">Angel</option>
                             <option value="Series A">Series A</option>
                             <option value="Series B">Series B</option>
-                            <option value="Series C+">Series C+</option>
-                            <option value="Public">Public Company</option>
-                            <option value="Private Equity">Private Equity</option>
+                            <option value="Series C">Series C</option>
                           </select>
                         </div>
                         
@@ -1036,7 +1177,7 @@ className="w-full max-w-2xl bg-white rounded-xl shadow-xl border border-slate-20
                           <label className="block text-sm font-medium text-slate-700 mb-2">
                             Edition
                           </label>
-                          <select
+<select
                             value={newLead.edition}
                             onChange={(e) => setNewLead({ ...newLead, edition: e.target.value })}
                             className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"

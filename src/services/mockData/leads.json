@@ -7,7 +7,7 @@
     "company": "TechCorp Solutions",
     "position": "VP of Engineering",
     "source": "Website",
-    "status": "qualified",
+"status": "meeting-done",
     "value": 25000,
     "assignedTo": "John Smith",
     "createdAt": "2024-01-15T10:00:00Z",
@@ -18,8 +18,8 @@
     "teamSize": 150,
     "arr": 2400000,
     "fundingType": "Series B",
-    "category": "Technology",
-    "edition": "Enterprise",
+    "category": "CRM",
+    "edition": "Black Edition",
     "estimatedValue": 25000
   },
   {
@@ -31,7 +31,7 @@
     "position": "CTO",
     "source": "LinkedIn",
     "status": "contacted",
-    "value": 45000,
+"value": 45000,
     "assignedTo": "Sarah Williams",
     "createdAt": "2024-01-16T09:30:00Z",
     "lastContactedAt": "2024-01-17T11:45:00Z",
@@ -41,8 +41,8 @@
     "teamSize": 75,
     "arr": 1800000,
     "fundingType": "Series A",
-    "category": "Software Development",
-    "edition": "Professional",
+    "category": "Project Management",
+    "edition": "Collector's Edition",
     "estimatedValue": 45000
   },
   {
@@ -55,7 +55,7 @@
     "source": "Referral",
     "status": "new",
     "value": 15000,
-    "assignedTo": "Mike Davis",
+"assignedTo": "Mike Davis",
     "createdAt": "2024-01-18T16:20:00Z",
     "lastContactedAt": null,
     "notes": "Referred by existing client. Needs solution for small team.",
@@ -63,9 +63,9 @@
     "linkedinUrl": "https://linkedin.com/company/startuplab",
     "teamSize": 12,
     "arr": 240000,
-    "fundingType": "Seed",
-    "category": "Startup Incubator",
-    "edition": "Starter",
+    "fundingType": "Angel",
+    "category": "Form Builder",
+    "edition": "Limited Edition",
     "estimatedValue": 15000
   },
   {
@@ -77,7 +77,7 @@
     "position": "IT Director",
     "source": "Trade Show",
     "status": "qualified",
-    "value": 75000,
+"value": 75000,
     "assignedTo": "Lisa Anderson",
     "createdAt": "2024-01-10T08:15:00Z",
     "lastContactedAt": "2024-01-19T13:20:00Z",
@@ -86,9 +86,9 @@
     "linkedinUrl": "https://linkedin.com/company/globaltech-industries",
     "teamSize": 500,
     "arr": 12000000,
-    "fundingType": "Public",
-    "category": "Manufacturing",
-    "edition": "Enterprise",
+    "fundingType": "Series C",
+    "category": "Help Desk",
+    "edition": "Black Edition",
     "estimatedValue": 75000
   },
   {
@@ -100,7 +100,7 @@
     "position": "Creative Director",
     "source": "Google Ads",
     "status": "contacted",
-    "value": 8000,
+"value": 8000,
     "assignedTo": "John Smith",
     "createdAt": "2024-01-17T12:45:00Z",
     "lastContactedAt": "2024-01-18T09:30:00Z",
@@ -110,8 +110,8 @@
     "teamSize": 25,
     "arr": 450000,
     "fundingType": "Bootstrapped",
-    "category": "Creative Services",
-    "edition": "Basic",
+    "category": "Graphic Design",
+    "edition": "Limited Edition",
     "estimatedValue": 8000
   },
   {
@@ -123,7 +123,7 @@
     "position": "CFO",
     "source": "Email Campaign",
     "status": "unqualified",
-    "value": 0,
+"value": 0,
     "assignedTo": "Sarah Williams",
     "createdAt": "2024-01-12T14:30:00Z",
     "lastContactedAt": "2024-01-15T16:45:00Z",
@@ -133,8 +133,8 @@
     "teamSize": 200,
     "arr": 8500000,
     "fundingType": "Series C",
-    "category": "Financial Services",
-    "edition": "Enterprise",
+    "category": "WordPress Plugin",
+    "edition": "Black Edition",
     "estimatedValue": 0
   },
   {
@@ -146,7 +146,7 @@
     "position": "Product Manager",
     "source": "Website",
     "status": "new",
-    "value": 32000,
+"value": 32000,
     "assignedTo": "Mike Davis",
     "createdAt": "2024-01-19T11:20:00Z",
     "lastContactedAt": null,
@@ -155,9 +155,9 @@
     "linkedinUrl": "https://linkedin.com/company/healthtech-solutions",
     "teamSize": 85,
     "arr": 3200000,
-    "fundingType": "Series A",
-    "category": "Healthcare Technology",
-    "edition": "Professional",
+    "fundingType": "Y Combinator",
+    "category": "Live Chat",
+    "edition": "Collector's Edition",
     "estimatedValue": 32000
   },
   {
@@ -169,7 +169,7 @@
     "position": "Operations Manager",
     "source": "Referral",
     "status": "contacted",
-    "value": 18000,
+"value": 18000,
     "assignedTo": "Lisa Anderson",
     "createdAt": "2024-01-14T15:10:00Z",
     "lastContactedAt": "2024-01-16T10:20:00Z",
@@ -178,9 +178,9 @@
     "linkedinUrl": "https://linkedin.com/company/retailplus",
     "teamSize": 300,
     "arr": 5400000,
-    "fundingType": "Private Equity",
-    "category": "Retail",
-    "edition": "Professional",
+    "fundingType": "Pre-seed",
+    "category": "VPN",
+    "edition": "Limited Edition",
     "estimatedValue": 18000
   }
 ]
