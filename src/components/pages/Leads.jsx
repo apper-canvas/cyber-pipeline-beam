@@ -408,7 +408,6 @@ value={statusFilter}
                     </th>
                     <th className="px-4 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
                       ARR
-ARR
                     </th>
                     <th className="px-4 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
                       Category
@@ -420,6 +419,7 @@ ARR
                       Funding Type
                     </th>
                     <th className="px-4 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                      Status
                     </th>
                     <th className="px-4 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
                       Last Contact
@@ -427,11 +427,11 @@ ARR
                     <th className="px-4 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
                       Sales Rep
                     </th>
-<th className="px-4 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
-                      Actions
-                    </th>
                     <th className="px-4 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
                       Source
+                    </th>
+                    <th className="sticky right-0 bg-white px-4 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider border-l border-slate-200">
+                      Actions
                     </th>
                   </tr>
                 </thead>
@@ -483,7 +483,7 @@ className="hover:bg-slate-50 transition-colors"
                                 </button>
                               </div>
                             ) : (
-<p 
+                              <p 
                                 className="text-xs font-medium text-slate-900 cursor-pointer hover:bg-slate-100 px-1 py-0.5 rounded"
                                 onClick={(e) => {
                                   e.stopPropagation();
@@ -493,7 +493,7 @@ className="hover:bg-slate-50 transition-colors"
                                 {lead.name}
                               </p>
                             )}
-</div>
+                          </div>
                         </div>
                           </div>
                         </div>
@@ -537,7 +537,7 @@ className="hover:bg-slate-50 transition-colors"
                         </div>
                       </td>
                       <td className="px-4 py-4">
-{editingCell === `${lead.Id}-websiteUrl` ? (
+                        {editingCell === `${lead.Id}-websiteUrl` ? (
                           <div className="flex items-center gap-1">
                             <Input
                               value={editingValue}
@@ -564,7 +564,7 @@ className="hover:bg-slate-50 transition-colors"
                             </Button>
                           </div>
                         ) : (
-<div 
+                          <div 
                             className="cursor-pointer group flex items-center"
                             onDoubleClick={() => handleCellEdit(lead.Id, 'websiteUrl', lead.websiteUrl)}
                           >
@@ -587,7 +587,7 @@ className="hover:bg-slate-50 transition-colors"
                           </div>
                         )}
                       </td>
-<td className="px-4 py-4">
+                      <td className="px-4 py-4">
                         {editingCell === `${lead.Id}-linkedinUrl` ? (
                           <div className="flex items-center gap-1">
                             <Input
@@ -615,7 +615,7 @@ className="hover:bg-slate-50 transition-colors"
                             </Button>
                           </div>
                         ) : (
-<div 
+                          <div 
                             className="cursor-pointer group flex items-center"
                             onDoubleClick={() => handleCellEdit(lead.Id, 'linkedinUrl', lead.linkedinUrl)}
                           >
@@ -638,7 +638,7 @@ className="hover:bg-slate-50 transition-colors"
                           </div>
                         )}
                       </td>
-<td className="px-4 py-4">
+                      <td className="px-4 py-4">
                         {editingCell === `${lead.Id}-teamSize` ? (
                           <div className="flex items-center gap-1">
                             <Input
@@ -675,7 +675,7 @@ className="hover:bg-slate-50 transition-colors"
                           </span>
                         )}
                       </td>
-<td className="px-4 py-4">
+                      <td className="px-4 py-4">
                         {editingCell === `${lead.Id}-arr` ? (
                           <div className="flex items-center gap-1">
                             <Input
@@ -710,9 +710,9 @@ className="hover:bg-slate-50 transition-colors"
                           >
                             ${lead.arr?.toLocaleString() || 'N/A'}
                           </span>
-)}
+                        )}
                       </td>
-<td className="px-4 py-4">
+                      <td className="px-4 py-4">
                         {editingCell === `${lead.Id}-category` ? (
                           <div className="flex items-center gap-1">
                             <select
@@ -755,7 +755,7 @@ className="hover:bg-slate-50 transition-colors"
                           </span>
                         )}
                       </td>
-<td className="px-4 py-4">
+                      <td className="px-4 py-4">
                         {editingCell === `${lead.Id}-edition` ? (
                           <div className="flex items-center gap-1">
                             <select
@@ -796,7 +796,7 @@ className="hover:bg-slate-50 transition-colors"
                           >
                             {lead.edition || 'N/A'}
                           </span>
-)}
+                        )}
                       </td>
                       <td className="px-4 py-4">
                         {editingCell === `${lead.Id}-fundingType` ? (
@@ -842,7 +842,7 @@ className="hover:bg-slate-50 transition-colors"
                         )}
                       </td>
                       <td className="px-4 py-4">
-<select
+                        <select
                           value={lead.status}
                           onChange={(e) => {
                             e.stopPropagation();
@@ -881,40 +881,6 @@ className="hover:bg-slate-50 transition-colors"
                         <span className="text-xs font-medium text-slate-900">
                           {lead.assignedTo || "Unassigned"}
                         </span>
-                      </td>
-<td className="px-4 py-4">
-                        <div className="flex items-center space-x-1">
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              // Navigate to edit lead page
-                              window.location.href = `/leads/edit/${lead.Id}`;
-                            }}
-                            className="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
-                          >
-                            <ApperIcon name="Edit" className="w-3 h-3" />
-                          </button>
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              // Handle call action
-                              toast.success("Call initiated");
-                            }}
-                            className="p-1.5 text-slate-400 hover:text-green-600 hover:bg-green-50 rounded-lg transition-colors"
-                          >
-                            <ApperIcon name="Phone" className="w-3 h-3" />
-                          </button>
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setEmailLead(lead);
-                              setShowEmailComposer(true);
-                            }}
-                            className="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
-                          >
-                            <ApperIcon name="Mail" className="w-3 h-3" />
-                          </button>
-                        </div>
                       </td>
                       <td className="px-4 py-4">
                         {editingCell === `${lead.Id}-notes` ? (
@@ -961,6 +927,40 @@ className="hover:bg-slate-50 transition-colors"
                             {lead.notes || "No notes"}
                           </div>
                         )}
+                      </td>
+                      <td className="sticky right-0 bg-white border-l border-slate-200 px-4 py-4">
+                        <div className="flex items-center space-x-1">
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              // Navigate to edit lead page
+                              window.location.href = `/leads/edit/${lead.Id}`;
+                            }}
+                            className="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                          >
+                            <ApperIcon name="Edit" className="w-3 h-3" />
+                          </button>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              // Handle call action
+                              toast.success("Call initiated");
+                            }}
+                            className="p-1.5 text-slate-400 hover:text-green-600 hover:bg-green-50 rounded-lg transition-colors"
+                          >
+                            <ApperIcon name="Phone" className="w-3 h-3" />
+                          </button>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setEmailLead(lead);
+                              setShowEmailComposer(true);
+                            }}
+                            className="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                          >
+                            <ApperIcon name="Mail" className="w-3 h-3" />
+                          </button>
+                        </div>
                       </td>
                     </motion.tr>
                   ))}
