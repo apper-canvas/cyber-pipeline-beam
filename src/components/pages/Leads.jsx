@@ -22,9 +22,11 @@ const Leads = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [sourceFilter, setSourceFilter] = useState("all");
-  const [selectedLead, setSelectedLead] = useState(null);
+const [selectedLead, setSelectedLead] = useState(null);
   const [showNewLeadModal, setShowNewLeadModal] = useState(false);
   const [showAddModal, setShowAddModal] = useState(false);
+  const [editLead, setEditLead] = useState(null);
+  const [showEditModal, setShowEditModal] = useState(false);
   const [showEmailComposer, setShowEmailComposer] = useState(false);
   const [showEmailTemplate, setShowEmailTemplate] = useState(false);
   const [showTemplateModal, setShowTemplateModal] = useState(false);
@@ -35,22 +37,41 @@ const Leads = () => {
   const [editingCell, setEditingCell] = useState(null);
   const [editingValue, setEditingValue] = useState("");
   const [savingCell, setSavingCell] = useState(null);
-  const [newLead, setNewLead] = useState({
+const [newLead, setNewLead] = useState({
     name: "",
     company: "",
     source: "Website",
-status: "connected",
+    status: "connected",
     value: "",
     notes: "",
     websiteUrl: "",
     teamSize: "",
     arr: "",
-category: "",
+    category: "",
     linkedinUrl: "",
     fundingType: "",
     edition: "",
     salesRep: ""
   });
+
+  const initializeEditLead = (lead) => {
+    setEditLead({
+      name: lead.name || "",
+      company: lead.company || "",
+      source: lead.source || "Website",
+      status: lead.status || "connected",
+      value: lead.value?.toString() || "",
+      notes: lead.notes || "",
+      websiteUrl: lead.websiteUrl || "",
+      teamSize: lead.teamSize?.toString() || "",
+      arr: lead.arr?.toString() || "",
+      category: lead.category || "",
+      linkedinUrl: lead.linkedinUrl || "",
+      fundingType: lead.fundingType || "",
+      edition: lead.edition || "",
+      salesRep: lead.salesRep || ""
+    });
+  };
 
 const statusOptions = [
     { value: "all", label: "All Status" },
@@ -162,7 +183,7 @@ if (searchTerm) {
     setFilteredLeads(filtered);
   }, [leads, searchTerm, statusFilter, sourceFilter]);
 
-  const handleAddLead = async (e) => {
+const handleAddLead = async (e) => {
     e.preventDefault();
     
     try {
@@ -174,17 +195,17 @@ if (searchTerm) {
       const createdLead = await leadsService.create(leadData);
       setLeads(prev => [createdLead, ...prev]);
       setShowAddModal(false);
-setNewLead({
+      setNewLead({
         name: "",
         company: "",
         source: "Website",
-        status: "new",
+        status: "connected",
         value: "",
         notes: "",
         websiteUrl: "",
         teamSize: "",
         arr: "",
-category: "",
+        category: "",
         linkedinUrl: "",
         fundingType: "",
         edition: "",
@@ -193,6 +214,32 @@ category: "",
       toast.success("Lead added successfully!");
     } catch (err) {
       toast.error(err.message || "Failed to add lead");
+    }
+  };
+
+  const handleEditLead = async (e) => {
+    e.preventDefault();
+    
+    if (!selectedLead) return;
+    
+    try {
+      const leadData = {
+        ...editLead,
+        value: parseFloat(editLead.value) || 0,
+        teamSize: editLead.teamSize ? parseInt(editLead.teamSize) : null,
+        arr: editLead.arr ? parseFloat(editLead.arr) : null
+      };
+      
+      const updatedLead = await leadsService.update(selectedLead.Id, leadData);
+      setLeads(prev => prev.map(lead => 
+        lead.Id === selectedLead.Id ? updatedLead : lead
+      ));
+      setShowEditModal(false);
+      setEditLead(null);
+      setSelectedLead(null);
+      toast.success("Lead updated successfully!");
+    } catch (err) {
+      toast.error(err.message || "Failed to update lead");
     }
   };
 
@@ -930,11 +977,12 @@ className="hover:bg-slate-50 transition-colors"
                       </td>
                       <td className="sticky right-0 bg-white border-l border-slate-200 px-4 py-4">
                         <div className="flex items-center space-x-1">
-                          <button
+<button
                             onClick={(e) => {
                               e.stopPropagation();
-                              // Navigate to edit lead page
-                              window.location.href = `/leads/edit/${lead.Id}`;
+                              setSelectedLead(lead);
+                              initializeEditLead(lead);
+                              setShowEditModal(true);
                             }}
                             className="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
                           >
@@ -1332,6 +1380,383 @@ className="w-full max-w-2xl bg-white rounded-xl shadow-xl border border-slate-20
                     </Button>
                     <Button type="submit">
                       Add Lead
+                    </Button>
+                  </div>
+                </form>
+</motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Edit Lead Modal */}
+        <AnimatePresence>
+          {showEditModal && editLead && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/20 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+              onClick={() => {
+                setShowEditModal(false);
+                setEditLead(null);
+                setSelectedLead(null);
+              }}
+            >
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                onClick={(e) => e.stopPropagation()}
+                className="w-full max-w-2xl bg-white rounded-xl shadow-xl border border-slate-200 max-h-[90vh] flex flex-col"
+              >
+                <div className="p-6 border-b border-slate-200">
+                  <h3 className="text-lg font-semibold text-slate-900">Edit Lead</h3>
+                </div>
+                
+                <form onSubmit={handleEditLead} className="flex flex-col h-full">
+                  <div className="flex-1 overflow-y-auto p-6 scrollbar-gutter-stable" style={{scrollbarWidth: 'thin'}}>
+                    <div className="space-y-6">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-sm font-medium text-slate-700 mb-2">
+                            Product Name *
+                          </label>
+                          <Input
+                            value={editLead.name}
+                            onChange={(e) => setEditLead({ ...editLead, name: e.target.value })}
+                            required
+                            placeholder="Enter product name"
+                          />
+                        </div>
+                        
+                        <div>
+                          <label className="block text-sm font-medium text-slate-700 mb-2">
+                            Company *
+                          </label>
+                          <Input
+                            value={editLead.company}
+                            onChange={(e) => setEditLead({ ...editLead, company: e.target.value })}
+                            required
+                            placeholder="Enter company name"
+                          />
+                        </div>
+                        
+                        <div>
+                          <label className="block text-sm font-medium text-slate-700 mb-2">
+                            Website URL
+                          </label>
+                          <Input
+                            type="url"
+                            value={editLead.websiteUrl}
+                            onChange={(e) => setEditLead({ ...editLead, websiteUrl: e.target.value })}
+                            placeholder="https://company-website.com"
+                          />
+                        </div>
+                        
+                        <div>
+                          <label className="block text-sm font-medium text-slate-700 mb-2">
+                            LinkedIn URL
+                          </label>
+                          <Input
+                            type="url"
+                            value={editLead.linkedinUrl}
+                            onChange={(e) => setEditLead({ ...editLead, linkedinUrl: e.target.value })}
+                            placeholder="https://linkedin.com/company/company-name"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block text-sm font-medium text-slate-700 mb-2">
+                            Team Size
+                          </label>
+                          <Input
+                            type="number"
+                            min="1"
+                            value={editLead.teamSize}
+                            onChange={(e) => setEditLead({ ...editLead, teamSize: e.target.value })}
+                            placeholder="Number of employees"
+                          />
+                        </div>
+                        
+                        <div>
+                          <label className="block text-sm font-medium text-slate-700 mb-2">
+                            ARR (Annual Recurring Revenue)
+                          </label>
+                          <Input
+                            type="number"
+                            min="0"
+                            value={editLead.arr}
+                            onChange={(e) => setEditLead({ ...editLead, arr: e.target.value })}
+                            placeholder="Enter ARR amount"
+                          />
+                        </div>
+                        
+                        <div>
+                          <label className="block text-sm font-medium text-slate-700 mb-2">
+                            Category
+                          </label>
+                          <select
+                            value={editLead.category}
+                            onChange={(e) => setEditLead({ ...editLead, category: e.target.value })}
+                            className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                          >
+                            <option value="">Select category</option>
+                            <option value="Form Builder">Form Builder</option>
+                            <option value="CRM">CRM</option>
+                            <option value="Project Management">Project Management</option>
+                            <option value="Affiliate Management">Affiliate Management</option>
+                            <option value="Help Desk">Help Desk</option>
+                            <option value="Live Chat">Live Chat</option>
+                            <option value="Graphic Design">Graphic Design</option>
+                            <option value="WordPress Plugin">WordPress Plugin</option>
+                            <option value="VPN">VPN</option>
+                            <option value="Landing Page Builder">Landing Page Builder</option>
+                            <option value="Email Marketing">Email Marketing</option>
+                            <option value="Social Media Management">Social Media Management</option>
+                            <option value="SEO Tools">SEO Tools</option>
+                            <option value="Analytics">Analytics</option>
+                            <option value="E-commerce">E-commerce</option>
+                            <option value="Payment Processing">Payment Processing</option>
+                            <option value="Accounting Software">Accounting Software</option>
+                            <option value="HR Management">HR Management</option>
+                            <option value="Document Management">Document Management</option>
+                            <option value="Cloud Storage">Cloud Storage</option>
+                            <option value="Backup Solutions">Backup Solutions</option>
+                            <option value="Security Software">Security Software</option>
+                            <option value="Password Manager">Password Manager</option>
+                            <option value="Video Conferencing">Video Conferencing</option>
+                            <option value="Screen Recording">Screen Recording</option>
+                            <option value="File Sharing">File Sharing</option>
+                            <option value="Task Management">Task Management</option>
+                            <option value="Time Tracking">Time Tracking</option>
+                            <option value="Invoice Generator">Invoice Generator</option>
+                            <option value="Survey Tools">Survey Tools</option>
+                            <option value="Website Builder">Website Builder</option>
+                            <option value="App Development">App Development</option>
+                            <option value="API Tools">API Tools</option>
+                            <option value="Database Management">Database Management</option>
+                            <option value="Monitoring Tools">Monitoring Tools</option>
+                            <option value="Testing Tools">Testing Tools</option>
+                            <option value="Code Editor">Code Editor</option>
+                            <option value="Version Control">Version Control</option>
+                            <option value="Deployment Tools">Deployment Tools</option>
+                            <option value="Content Management">Content Management</option>
+                            <option value="Blogging Platform">Blogging Platform</option>
+                            <option value="Course Creation">Course Creation</option>
+                            <option value="Learning Management">Learning Management</option>
+                            <option value="Event Management">Event Management</option>
+                            <option value="Booking System">Booking System</option>
+                            <option value="Appointment Scheduling">Appointment Scheduling</option>
+                            <option value="Customer Support">Customer Support</option>
+                            <option value="Knowledge Base">Knowledge Base</option>
+                            <option value="FAQ Software">FAQ Software</option>
+                            <option value="Feedback Collection">Feedback Collection</option>
+                            <option value="Review Management">Review Management</option>
+                            <option value="Reputation Management">Reputation Management</option>
+                            <option value="Social Proof">Social Proof</option>
+                            <option value="A/B Testing">A/B Testing</option>
+                            <option value="Heat Mapping">Heat Mapping</option>
+                            <option value="User Behavior">User Behavior</option>
+                            <option value="Conversion Optimization">Conversion Optimization</option>
+                            <option value="Lead Generation">Lead Generation</option>
+                            <option value="Sales Automation">Sales Automation</option>
+                            <option value="Marketing Automation">Marketing Automation</option>
+                            <option value="Webinar Software">Webinar Software</option>
+                            <option value="Podcast Hosting">Podcast Hosting</option>
+                            <option value="Video Hosting">Video Hosting</option>
+                            <option value="Image Optimization">Image Optimization</option>
+                            <option value="CDN Service">CDN Service</option>
+                            <option value="Performance Optimization">Performance Optimization</option>
+                            <option value="Website Speed">Website Speed</option>
+                            <option value="Mobile App Testing">Mobile App Testing</option>
+                            <option value="Cross-browser Testing">Cross-browser Testing</option>
+                            <option value="Load Testing">Load Testing</option>
+                            <option value="Security Testing">Security Testing</option>
+                            <option value="Penetration Testing">Penetration Testing</option>
+                            <option value="Vulnerability Scanner">Vulnerability Scanner</option>
+                            <option value="SSL Certificate">SSL Certificate</option>
+                            <option value="Domain Registration">Domain Registration</option>
+                            <option value="Web Hosting">Web Hosting</option>
+                            <option value="VPS Hosting">VPS Hosting</option>
+                            <option value="Dedicated Server">Dedicated Server</option>
+                            <option value="Cloud Hosting">Cloud Hosting</option>
+                            <option value="CDN Hosting">CDN Hosting</option>
+                            <option value="Email Hosting">Email Hosting</option>
+                            <option value="Database Hosting">Database Hosting</option>
+                            <option value="Application Hosting">Application Hosting</option>
+                            <option value="WordPress Hosting">WordPress Hosting</option>
+                            <option value="E-commerce Hosting">E-commerce Hosting</option>
+                            <option value="Reseller Hosting">Reseller Hosting</option>
+                            <option value="Managed Hosting">Managed Hosting</option>
+                            <option value="Shared Hosting">Shared Hosting</option>
+                            <option value="Business Hosting">Business Hosting</option>
+                            <option value="Enterprise Hosting">Enterprise Hosting</option>
+                            <option value="Startup Tools">Startup Tools</option>
+                            <option value="Business Intelligence">Business Intelligence</option>
+                            <option value="Data Visualization">Data Visualization</option>
+                            <option value="Reporting Tools">Reporting Tools</option>
+                            <option value="Dashboard Software">Dashboard Software</option>
+                            <option value="Workflow Automation">Workflow Automation</option>
+                            <option value="Integration Platform">Integration Platform</option>
+                            <option value="API Management">API Management</option>
+                            <option value="Microservices">Microservices</option>
+                            <option value="Serverless Computing">Serverless Computing</option>
+                            <option value="Container Management">Container Management</option>
+                            <option value="Orchestration Tools">Orchestration Tools</option>
+                            <option value="DevOps Tools">DevOps Tools</option>
+                            <option value="CI/CD Pipeline">CI/CD Pipeline</option>
+                            <option value="Infrastructure Management">Infrastructure Management</option>
+                            <option value="Cloud Management">Cloud Management</option>
+                            <option value="Multi-cloud">Multi-cloud</option>
+                            <option value="Hybrid Cloud">Hybrid Cloud</option>
+                            <option value="Edge Computing">Edge Computing</option>
+                            <option value="IoT Platform">IoT Platform</option>
+                            <option value="Machine Learning">Machine Learning</option>
+                            <option value="Artificial Intelligence">Artificial Intelligence</option>
+                            <option value="Natural Language Processing">Natural Language Processing</option>
+                            <option value="Computer Vision">Computer Vision</option>
+                            <option value="Data Science">Data Science</option>
+                            <option value="Big Data">Big Data</option>
+                            <option value="Data Mining">Data Mining</option>
+                            <option value="Predictive Analytics">Predictive Analytics</option>
+                          </select>
+                        </div>
+                        
+                        <div>
+                          <label className="block text-sm font-medium text-slate-700 mb-2">
+                            Source
+                          </label>
+                          <select
+                            value={editLead.source}
+                            onChange={(e) => setEditLead({ ...editLead, source: e.target.value })}
+                            className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                          >
+                            <option value="Website">Website</option>
+                            <option value="LinkedIn">LinkedIn</option>
+                            <option value="Referral">Referral</option>
+                            <option value="Trade Show">Trade Show</option>
+                            <option value="Google Ads">Google Ads</option>
+                            <option value="Email Campaign">Email Campaign</option>
+                          </select>
+                        </div>
+                        
+                        <div>
+                          <label className="block text-sm font-medium text-slate-700 mb-2">
+                            Status
+                          </label>
+                          <select
+                            value={editLead.status}
+                            onChange={(e) => setEditLead({ ...editLead, status: e.target.value })}
+                            className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                          >
+                            <option value="connected">Connected</option>
+                            <option value="locked">Locked</option>
+                            <option value="meeting-booked">Meeting Booked</option>
+                            <option value="meeting-done">Meeting Done</option>
+                            <option value="negotiation">Negotiation</option>
+                            <option value="closed">Closed</option>
+                            <option value="lost">Lost</option>
+                            <option value="launched-appsumo">Launched on AppSumo</option>
+                            <option value="launched-prime">Launched on Prime Club</option>
+                            <option value="keep-eye">Keep an Eye</option>
+                            <option value="rejected">Rejected</option>
+                            <option value="unsubscribed">Unsubscribed</option>
+                            <option value="outdated">Outdated</option>
+                            <option value="hotlist">Hotlist</option>
+                            <option value="out-of-league">Out of League</option>
+                          </select>
+                        </div>
+                        
+                        <div>
+                          <label className="block text-sm font-medium text-slate-700 mb-2">
+                            Funding Type
+                          </label>
+                          <select
+                            value={editLead.fundingType}
+                            onChange={(e) => setEditLead({ ...editLead, fundingType: e.target.value })}
+                            className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                          >
+                            <option value="">Select funding type</option>
+                            <option value="Bootstrapped">Bootstrapped</option>
+                            <option value="Pre-seed">Pre-seed</option>
+                            <option value="Y Combinator">Y Combinator</option>
+                            <option value="Angel">Angel</option>
+                            <option value="Series A">Series A</option>
+                            <option value="Series B">Series B</option>
+                            <option value="Series C">Series C</option>
+                          </select>
+                        </div>
+                        
+                        <div>
+                          <label className="block text-sm font-medium text-slate-700 mb-2">
+                            Edition
+                          </label>
+                          <select
+                            value={editLead.edition}
+                            onChange={(e) => setEditLead({ ...editLead, edition: e.target.value })}
+                            className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                          >
+                            <option value="">Select Edition</option>
+                            <option value="Black Edition">Black Edition</option>
+                            <option value="Collector's Edition">Collector's Edition</option>
+                            <option value="Limited Edition">Limited Edition</option>
+                          </select>
+                        </div>
+                        
+                        <div>
+                          <label className="block text-sm font-medium text-slate-700 mb-2">
+                            Estimated Value
+                          </label>
+                          <Input
+                            type="number"
+                            value={editLead.value}
+                            onChange={(e) => setEditLead({ ...editLead, value: e.target.value })}
+                            placeholder="Enter estimated deal value"
+                          />
+                        </div>
+                        
+                        <div>
+                          <label className="block text-sm font-medium text-slate-700 mb-2">
+                            Sales Rep
+                          </label>
+                          <Input
+                            value={editLead.salesRep}
+                            onChange={(e) => setEditLead({ ...editLead, salesRep: e.target.value })}
+                            placeholder="Assigned sales representative"
+                          />
+                        </div>
+                        
+                      </div>
+                      
+                      <div>
+                        <label className="block text-sm font-medium text-slate-700 mb-2">
+                          Notes
+                        </label>
+                        <textarea
+                          value={editLead.notes}
+                          onChange={(e) => setEditLead({ ...editLead, notes: e.target.value })}
+                          rows={3}
+                          className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                          placeholder="Add any additional notes..."
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="flex-shrink-0 flex justify-end space-x-3 p-6 border-t border-slate-200 bg-white rounded-b-xl">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => {
+                        setShowEditModal(false);
+                        setEditLead(null);
+                        setSelectedLead(null);
+                      }}
+                    >
+                      Cancel
+                    </Button>
+                    <Button type="submit">
+                      Update Lead
                     </Button>
                   </div>
                 </form>
