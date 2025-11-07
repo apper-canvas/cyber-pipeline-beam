@@ -427,11 +427,11 @@ ARR
                     <th className="px-4 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
                       Sales Rep
                     </th>
-                    <th className="px-4 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
-                      Notes
-                    </th>
-                    <th className="px-4 py-4 text-right text-xs font-semibold text-slate-600 uppercase tracking-wider">
+<th className="px-4 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
                       Actions
+                    </th>
+                    <th className="px-4 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                      Source
                     </th>
                   </tr>
                 </thead>
@@ -883,32 +883,75 @@ className="hover:bg-slate-50 transition-colors"
                         </span>
                       </td>
 <td className="px-4 py-4">
+                        <div className="flex items-center space-x-1">
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              // Navigate to edit lead page
+                              window.location.href = `/leads/edit/${lead.Id}`;
+                            }}
+                            className="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                          >
+                            <ApperIcon name="Edit" className="w-3 h-3" />
+                          </button>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              // Handle call action
+                              toast.success("Call initiated");
+                            }}
+                            className="p-1.5 text-slate-400 hover:text-green-600 hover:bg-green-50 rounded-lg transition-colors"
+                          >
+                            <ApperIcon name="Phone" className="w-3 h-3" />
+                          </button>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setEmailLead(lead);
+                              setShowEmailComposer(true);
+                            }}
+                            className="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                          >
+                            <ApperIcon name="Mail" className="w-3 h-3" />
+                          </button>
+                        </div>
+                      </td>
+                      <td className="px-4 py-4">
                         {editingCell === `${lead.Id}-notes` ? (
-                          <div className="flex items-center gap-1">
-                            <Input
+                          <div className="flex items-start gap-1">
+                            <textarea
                               value={editingValue}
                               onChange={(e) => setEditingValue(e.target.value)}
-                              onKeyDown={(e) => handleKeyPress(e, lead.Id, 'notes')}
-                              className="text-xs h-6 w-24"
+                              onKeyDown={(e) => {
+                                if (e.key === 'Enter' && e.ctrlKey) {
+                                  handleCellSave(lead.Id, 'notes');
+                                } else if (e.key === 'Escape') {
+                                  handleCellCancel();
+                                }
+                              }}
+                              className="text-xs w-32 h-16 p-2 border border-slate-300 rounded resize-none focus:outline-none focus:ring-2 focus:ring-primary-500"
                               autoFocus
+                              rows={3}
                             />
-                            <button
-                              onClick={() => handleCellSave(lead.Id, 'notes')}
-                              disabled={savingCell === `${lead.Id}-notes`}
-                              className="p-1 text-green-600 hover:text-green-800 disabled:opacity-50"
-                            >
-                              <ApperIcon name="Check" className="w-3 h-3" />
-                            </button>
-                            <button
-                              onClick={handleCellCancel}
-                              className="p-1 text-red-600 hover:text-red-800"
-                            >
-                              <ApperIcon name="X" className="w-3 h-3" />
-                            </button>
+                            <div className="flex flex-col gap-1">
+                              <button
+                                onClick={() => handleCellSave(lead.Id, 'notes')}
+                                disabled={savingCell === `${lead.Id}-notes`}
+                                className="p-1 text-green-600 hover:text-green-800 disabled:opacity-50"
+                              >
+                                <ApperIcon name="Check" className="w-3 h-3" />
+                              </button>
+                              <button
+                                onClick={handleCellCancel}
+                                className="p-1 text-red-600 hover:text-red-800"
+                              >
+                                <ApperIcon name="X" className="w-3 h-3" />
+                              </button>
+                            </div>
                           </div>
                         ) : (
                           <div 
-                            className="text-xs text-slate-600 max-w-20 truncate cursor-pointer hover:bg-slate-100 px-1 py-0.5 rounded" 
+                            className="text-xs text-slate-600 max-w-32 cursor-pointer hover:bg-slate-100 px-2 py-1 rounded leading-relaxed whitespace-pre-wrap" 
                             title={lead.notes}
                             onClick={(e) => {
                               e.stopPropagation();
@@ -918,30 +961,6 @@ className="hover:bg-slate-50 transition-colors"
                             {lead.notes || "No notes"}
                           </div>
                         )}
-                      </td>
-                      <td className="px-6 py-4 text-right">
-                        <div className="flex items-center justify-end space-x-2">
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              // Handle call action
-                              toast.success("Call initiated");
-                            }}
-                            className="p-2 text-slate-400 hover:text-green-600 hover:bg-green-50 rounded-lg transition-colors"
-                          >
-                            <ApperIcon name="Phone" className="w-4 h-4" />
-                          </button>
-                          <button
-onClick={(e) => {
-                              e.stopPropagation();
-                              setEmailLead(lead);
-                              setShowEmailComposer(true);
-                            }}
-                            className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
-                          >
-                            <ApperIcon name="Mail" className="w-4 h-4" />
-                          </button>
-                        </div>
                       </td>
                     </motion.tr>
                   ))}
