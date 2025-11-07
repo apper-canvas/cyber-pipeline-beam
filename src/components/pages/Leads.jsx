@@ -521,7 +521,7 @@ className="hover:bg-slate-50 transition-colors"
                             </Button>
                           </div>
                         ) : (
-                          <div 
+<div 
                             className="cursor-pointer group flex items-center"
                             onDoubleClick={() => handleCellEdit(lead.Id, 'websiteUrl', lead.websiteUrl)}
                           >
@@ -538,7 +538,9 @@ className="hover:bg-slate-50 transition-colors"
                             ) : (
                               <span className="text-xs text-gray-400">N/A</span>
                             )}
-                            <span className="ml-1 opacity-0 group-hover:opacity-100 text-xs text-gray-400">✏️</span>
+                            <span className="ml-1 opacity-0 group-hover:opacity-100 text-gray-400">
+                              <ApperIcon name="Edit3" size={12} />
+                            </span>
                           </div>
                         )}
                       </td>
@@ -570,7 +572,7 @@ className="hover:bg-slate-50 transition-colors"
                             </Button>
                           </div>
                         ) : (
-                          <div 
+<div 
                             className="cursor-pointer group flex items-center"
                             onDoubleClick={() => handleCellEdit(lead.Id, 'linkedinUrl', lead.linkedinUrl)}
                           >
@@ -587,7 +589,9 @@ className="hover:bg-slate-50 transition-colors"
                             ) : (
                               <span className="text-xs text-gray-400">N/A</span>
                             )}
-                            <span className="ml-1 opacity-0 group-hover:opacity-100 text-xs text-gray-400">✏️</span>
+                            <span className="ml-1 opacity-0 group-hover:opacity-100 text-gray-400">
+                              <ApperIcon name="Edit3" size={12} />
+                            </span>
                           </div>
                         )}
                       </td>
