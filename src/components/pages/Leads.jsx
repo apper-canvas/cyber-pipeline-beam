@@ -317,9 +317,18 @@ const handleStatusUpdate = async (leadId, newStatus) => {
               <table className="w-full">
                 <thead className="bg-slate-50 border-b border-slate-200">
 <tr>
-<th className="px-4 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
-                      Name
-                    </th>
+                      <th className="px-4 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                        <div className="flex items-center space-x-2">
+                          <button
+                            onClick={() => {/* View all functionality can be added here */}}
+                            className="text-slate-400 hover:text-slate-600 transition-colors"
+                            title="View Records"
+                          >
+                            <ApperIcon name="Eye" size={14} />
+                          </button>
+                          <span>Name</span>
+                        </div>
+                      </th>
                     <th className="px-4 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
                       Company
                     </th>
@@ -374,10 +383,18 @@ const handleStatusUpdate = async (leadId, newStatus) => {
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: index * 0.05 }}
-                      className="hover:bg-slate-50 transition-colors cursor-pointer"
-                      onClick={() => setSelectedLead(lead)}
+className="hover:bg-slate-50 transition-colors"
                     >
 <td className="px-4 py-4">
+                        <div className="flex items-center space-x-3">
+                          <button
+                            onClick={() => setSelectedLead(lead)}
+                            className="text-slate-400 hover:text-primary-600 transition-colors flex-shrink-0"
+                            title="View Lead Details"
+                          >
+                            <ApperIcon name="Eye" size={16} />
+                          </button>
+                          <div className="min-w-0 flex-1">
                         <div className="flex items-center">
                           <div className="w-8 h-8 bg-gradient-to-r from-primary-500 to-primary-600 rounded-full flex items-center justify-center text-white font-medium text-xs">
                             {lead.name.split(" ").map(n => n[0]).join("").toUpperCase()}
@@ -407,7 +424,7 @@ const handleStatusUpdate = async (leadId, newStatus) => {
                                 </button>
                               </div>
                             ) : (
-                              <p 
+<p 
                                 className="text-xs font-medium text-slate-900 cursor-pointer hover:bg-slate-100 px-1 py-0.5 rounded"
                                 onClick={(e) => {
                                   e.stopPropagation();
@@ -417,10 +434,11 @@ const handleStatusUpdate = async (leadId, newStatus) => {
                                 {lead.name}
                               </p>
                             )}
-                          </div>
+</div>
                         </div>
-                      </td>
-<td className="px-4 py-4">
+                          </div>
+                        </td>
+                      <td className="px-4 py-4">
                         <div>
                           {editingCell === `${lead.Id}-company` ? (
                             <div className="flex items-center gap-1">
