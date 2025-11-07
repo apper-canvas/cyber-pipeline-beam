@@ -71,7 +71,7 @@ const statusOptions = [
     { value: "out-of-league", label: "Out of League" }
   ];
 
-  const sourceOptions = [
+const sourceOptions = [
     { value: "all", label: "All Sources" },
     { value: "Website", label: "Website" },
     { value: "LinkedIn", label: "LinkedIn" },
@@ -79,6 +79,42 @@ const statusOptions = [
     { value: "Trade Show", label: "Trade Show" },
     { value: "Google Ads", label: "Google Ads" },
     { value: "Email Campaign", label: "Email Campaign" }
+  ];
+
+  const categoryOptions = [
+    "Form Builder", "CRM", "Project Management", "Affiliate Management", "Help Desk",
+    "Live Chat", "Graphic Design", "WordPress Plugin", "VPN", "Landing Page Builder",
+    "Email Marketing", "Social Media Management", "SEO Tools", "Analytics", "E-commerce",
+    "Payment Processing", "Accounting Software", "HR Management", "Document Management",
+    "Cloud Storage", "Backup Solutions", "Security Software", "Password Manager",
+    "Video Conferencing", "Screen Recording", "File Sharing", "Task Management",
+    "Time Tracking", "Invoice Generator", "Survey Tools", "Website Builder",
+    "App Development", "API Tools", "Database Management", "Monitoring Tools",
+    "Testing Tools", "Code Editor", "Version Control", "Deployment Tools",
+    "Content Management", "Blogging Platform", "Course Creation", "Learning Management",
+    "Event Management", "Booking System", "Appointment Scheduling", "Customer Support",
+    "Knowledge Base", "FAQ Software", "Feedback Collection", "Review Management",
+    "Reputation Management", "Social Proof", "A/B Testing", "Heat Mapping",
+    "User Behavior", "Conversion Optimization", "Lead Generation", "Sales Automation",
+    "Marketing Automation", "Webinar Software", "Podcast Hosting", "Video Hosting",
+    "Image Optimization", "CDN Service", "Performance Optimization", "Website Speed",
+    "Mobile App Testing", "Cross-browser Testing", "Load Testing", "Security Testing",
+    "Penetration Testing", "Vulnerability Scanner", "SSL Certificate", "Domain Registration",
+    "Web Hosting", "VPS Hosting", "Dedicated Server", "Cloud Hosting", "CDN Hosting",
+    "Email Hosting", "Database Hosting", "Application Hosting", "WordPress Hosting",
+    "E-commerce Hosting", "Reseller Hosting", "Managed Hosting", "Shared Hosting",
+    "Business Hosting", "Enterprise Hosting", "Startup Tools", "Business Intelligence",
+    "Data Visualization", "Reporting Tools", "Dashboard Software", "Workflow Automation",
+    "Integration Platform", "API Management", "Microservices", "Serverless Computing",
+    "Container Management", "Orchestration Tools", "DevOps Tools", "CI/CD Pipeline",
+    "Infrastructure Management", "Cloud Management", "Multi-cloud", "Hybrid Cloud",
+    "Edge Computing", "IoT Platform", "Machine Learning", "Artificial Intelligence",
+    "Natural Language Processing", "Computer Vision", "Data Science", "Big Data",
+    "Data Mining", "Predictive Analytics"
+  ];
+
+  const editionOptions = [
+    "Black Edition", "Collector's Edition", "Limited Edition"
   ];
 
   const loadLeads = async () => {
@@ -688,13 +724,20 @@ className="hover:bg-slate-50 transition-colors"
 <td className="px-4 py-4">
                         {editingCell === `${lead.Id}-category` ? (
                           <div className="flex items-center gap-1">
-                            <Input
+                            <select
                               value={editingValue}
                               onChange={(e) => setEditingValue(e.target.value)}
                               onKeyDown={(e) => handleKeyPress(e, lead.Id, 'category')}
-                              className="text-xs h-6 w-20"
+                              className="text-xs h-6 w-32 border-0 bg-transparent focus:ring-0 focus:outline-none cursor-pointer"
                               autoFocus
-                            />
+                            >
+                              <option value="">Select category</option>
+                              {categoryOptions.map(option => (
+                                <option key={option} value={option}>
+                                  {option}
+                                </option>
+                              ))}
+                            </select>
                             <button
                               onClick={() => handleCellSave(lead.Id, 'category')}
                               disabled={savingCell === `${lead.Id}-category`}
@@ -724,13 +767,20 @@ className="hover:bg-slate-50 transition-colors"
 <td className="px-4 py-4">
                         {editingCell === `${lead.Id}-edition` ? (
                           <div className="flex items-center gap-1">
-                            <Input
+                            <select
                               value={editingValue}
                               onChange={(e) => setEditingValue(e.target.value)}
                               onKeyDown={(e) => handleKeyPress(e, lead.Id, 'edition')}
-                              className="text-xs h-6 w-20"
+                              className="text-xs h-6 w-32 border-0 bg-transparent focus:ring-0 focus:outline-none cursor-pointer"
                               autoFocus
-                            />
+                            >
+                              <option value="">Select Edition</option>
+                              {editionOptions.map(option => (
+                                <option key={option} value={option}>
+                                  {option}
+                                </option>
+                              ))}
+                            </select>
                             <button
                               onClick={() => handleCellSave(lead.Id, 'edition')}
                               disabled={savingCell === `${lead.Id}-edition`}
