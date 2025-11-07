@@ -437,6 +437,7 @@ className="hover:bg-slate-50 transition-colors"
 </div>
                         </div>
                           </div>
+                        </div>
                         </td>
                       <td className="px-4 py-4">
                         <div>
