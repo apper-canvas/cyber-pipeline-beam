@@ -978,9 +978,8 @@ className="hover:bg-slate-50 transition-colors"
                       <td className="sticky right-0 bg-white border-l border-slate-200 px-4 py-4">
                         <div className="flex items-center space-x-1">
 <button
-                            onClick={(e) => {
+onClick={(e) => {
                               e.stopPropagation();
-                              setSelectedLead(lead);
                               initializeEditLead(lead);
                               setShowEditModal(true);
                             }}
