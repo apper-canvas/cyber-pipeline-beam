@@ -164,7 +164,7 @@ const handleStatusUpdate = async (leadId, newStatus) => {
     }
   };
 
-  const handleCellEdit = (leadId, field, currentValue) => {
+const handleCellEdit = (leadId, field, currentValue) => {
     setEditingCell(`${leadId}-${field}`);
     setEditingValue(currentValue || "");
   };
@@ -180,6 +180,22 @@ const handleStatusUpdate = async (leadId, newStatus) => {
       if (field === 'teamSize' || field === 'arr') {
         const numValue = parseInt(editingValue);
         valueToSave = isNaN(numValue) ? null : numValue;
+      }
+      
+      // Validate and format URL fields
+      if (field === 'websiteUrl' || field === 'linkedinUrl') {
+        valueToSave = editingValue.trim();
+        if (valueToSave && !valueToSave.match(/^https?:\/\//)) {
+          valueToSave = `https://${valueToSave}`;
+        }
+        // Basic URL validation
+        if (valueToSave) {
+          try {
+            new URL(valueToSave);
+          } catch {
+            throw new Error("Please enter a valid URL");
+          }
+        }
       }
       
       const updatedLead = await leadsService.update(leadId, { 
@@ -478,26 +494,102 @@ className="hover:bg-slate-50 transition-colors"
                         </div>
                       </td>
                       <td className="px-4 py-4">
-                        <a 
-                          href={lead.websiteUrl} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="text-xs text-primary-600 hover:text-primary-800 underline truncate max-w-24 block"
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          {lead.websiteUrl?.replace('https://', '') || 'N/A'}
-                        </a>
+{editingCell === `${lead.Id}-websiteUrl` ? (
+                          <div className="flex items-center gap-1">
+                            <Input
+                              value={editingValue}
+                              onChange={(e) => setEditingValue(e.target.value)}
+                              onKeyPress={(e) => handleKeyPress(e, lead.Id, 'websiteUrl')}
+                              className="h-7 text-xs w-28"
+                              placeholder="Enter website URL"
+                              autoFocus
+                            />
+                            <Button
+                              onClick={() => handleCellSave(lead.Id, 'websiteUrl')}
+                              disabled={savingCell === `${lead.Id}-websiteUrl`}
+                              className="h-6 w-6 p-0 text-xs"
+                              variant="outline"
+                            >
+                              ✓
+                            </Button>
+                            <Button
+                              onClick={handleCellCancel}
+                              className="h-6 w-6 p-0 text-xs"
+                              variant="outline"
+                            >
+                              ✕
+                            </Button>
+                          </div>
+                        ) : (
+                          <div 
+                            className="cursor-pointer group flex items-center"
+                            onDoubleClick={() => handleCellEdit(lead.Id, 'websiteUrl', lead.websiteUrl)}
+                          >
+                            {lead.websiteUrl ? (
+                              <a 
+                                href={lead.websiteUrl} 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="text-xs text-primary-600 hover:text-primary-800 underline truncate max-w-24 block"
+                                onClick={(e) => e.stopPropagation()}
+                              >
+                                {lead.websiteUrl.replace(/^https?:\/\//, '')}
+                              </a>
+                            ) : (
+                              <span className="text-xs text-gray-400">N/A</span>
+                            )}
+                            <span className="ml-1 opacity-0 group-hover:opacity-100 text-xs text-gray-400">✏️</span>
+                          </div>
+                        )}
                       </td>
-                      <td className="px-4 py-4">
-                        <a 
-                          href={lead.linkedinUrl} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="text-xs text-primary-600 hover:text-primary-800 underline truncate max-w-24 block"
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          {lead.linkedinUrl ? 'LinkedIn' : 'N/A'}
-                        </a>
+<td className="px-4 py-4">
+                        {editingCell === `${lead.Id}-linkedinUrl` ? (
+                          <div className="flex items-center gap-1">
+                            <Input
+                              value={editingValue}
+                              onChange={(e) => setEditingValue(e.target.value)}
+                              onKeyPress={(e) => handleKeyPress(e, lead.Id, 'linkedinUrl')}
+                              className="h-7 text-xs w-28"
+                              placeholder="Enter LinkedIn URL"
+                              autoFocus
+                            />
+                            <Button
+                              onClick={() => handleCellSave(lead.Id, 'linkedinUrl')}
+                              disabled={savingCell === `${lead.Id}-linkedinUrl`}
+                              className="h-6 w-6 p-0 text-xs"
+                              variant="outline"
+                            >
+                              ✓
+                            </Button>
+                            <Button
+                              onClick={handleCellCancel}
+                              className="h-6 w-6 p-0 text-xs"
+                              variant="outline"
+                            >
+                              ✕
+                            </Button>
+                          </div>
+                        ) : (
+                          <div 
+                            className="cursor-pointer group flex items-center"
+                            onDoubleClick={() => handleCellEdit(lead.Id, 'linkedinUrl', lead.linkedinUrl)}
+                          >
+                            {lead.linkedinUrl ? (
+                              <a 
+                                href={lead.linkedinUrl} 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="text-xs text-primary-600 hover:text-primary-800 underline truncate max-w-24 block"
+                                onClick={(e) => e.stopPropagation()}
+                              >
+                                LinkedIn
+                              </a>
+                            ) : (
+                              <span className="text-xs text-gray-400">N/A</span>
+                            )}
+                            <span className="ml-1 opacity-0 group-hover:opacity-100 text-xs text-gray-400">✏️</span>
+                          </div>
+                        )}
                       </td>
 <td className="px-4 py-4">
                         {editingCell === `${lead.Id}-teamSize` ? (
